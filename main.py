@@ -1,3 +1,5 @@
+from tracker import add_subject
+
 # Startup CLI Menu
 def main():
     while True:
@@ -15,8 +17,7 @@ def main():
         # Run something based on user input
         match choice:
             case "1":
-                # call add_subject()
-                print(1)
+                add_subject()
             case "2":
                 # call log_session()
                 print(2)
