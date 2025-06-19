@@ -1,10 +1,16 @@
 import json
-
-def tracker():
-    print(1)
+file = "data/studymate.json"
 
 def add_subject():
-    subject = input("Subject Name: ")
-    data = {"subject": subject, "time": 0}
-    with open('studymate.json', 'a') as json_file:
+    new_subject = {"subject": input("Subject Name: "), "time": 0}
+
+    try:
+        with open(file, 'r') as json_file:
+            data = json.load(json_file)
+    except FileNotFoundError:
+        data = []
+    
+    data.append(new_subject)
+
+    with open(file, 'w') as json_file:
         json.dump(data, json_file, indent=4)
