@@ -1,8 +1,9 @@
 import json
 file = "data/studymate.json"
 
+# Function for adding subject to data file
 def add_subject():
-    new_subject = {"subject": input("Subject Name: "), "time": 0}
+    new_subject = input("Subject Name: ")
 
     try:
         with open(file, 'r') as json_file:
