@@ -1,4 +1,6 @@
 import json
+from colorama import init, Fore, Style
+init(autoreset=True)
 subjects = "data/subjects.json"
 sessions = "data/sessions.json"
 
@@ -29,12 +31,14 @@ def write_file(filename, data):
 def add_subject(new_subject):
     data = read_file(subjects)
     if new_subject in data:
-        print("Subject already in list. \n")
+        print(Style.BRIGHT + Fore.YELLOW + "Subject already in list." + "\n")
         exit
     else:
         data.append(new_subject)
-    write_file(subjects, data)
-    print("\nSuccessfully added subject! \n")
+        write_file(subjects, data)
+        print(Style.BRIGHT + Fore.GREEN + "Successfully added subject!" + "\n")
+    
+    print(Style.BRIGHT + "-" * 50)
 
 
 # ------------------------------------------------------------
@@ -47,7 +51,7 @@ def remove_subject(subject):
         data.remove(subject)
         write_file(subjects, data)
     else:
-        print("Subject not found in list. \n")
+        print(Style.BRIGHT + Fore.RED + "Subject not found in list." + "\n")
         exit
 
     # Remove any sessions associated with that subject
@@ -55,7 +59,7 @@ def remove_subject(subject):
     logs_data = read_file(sessions)
     for session in logs_data:
         if session["subject"] == subject:
-            print("Removed one log:", session)
+            print(Style.BRIGHT + Fore.GREEN + "Removed log: " + session["subject"] + " on " + session["date"] + " for " + str(session["duration"]) + " minutes ")
         else:
             new_logs_data.append(session)
     write_file(sessions, new_logs_data)

@@ -26,10 +26,10 @@ cd studymate‑tracker
 python3 -m venv .venv
 source .venv/bin/activate   # Windows (WSL) users stay inside WSL
 
-# install deps (none yet, but later...)
-pip install -r requirements.txt   # file will appear once we add deps
+# install deps 
+pip install -r requirements.txt 
 
-# run it
+# run the app! use this command whenever you need to log a session, view stats, or change subject info
 python main.py
 ```
 
