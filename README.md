@@ -1,3 +1,4 @@
+![StudyMate Logo](logo.png)
 # StudyMate 📚
 
 *A minimal Python study‑time tracker you run from the terminal.*  
