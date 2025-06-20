@@ -9,8 +9,14 @@ Logs each study session by **subject**, **date**, and **duration**; then shows w
 ## ✨ Current Features
 - Add subjects on the fly  
 - Log a session (subject, minutes)  
-- View today’s total per subject  
-- View weekly totals (last 7 days)
+- View a list of all sessions
+- View totals of sessions per subject
+
+## 🛣️ Upcoming Features
+- Weekly and monthly stats
+- Built-in timer to automatically log sessions
+- Streaks and goals to improve experience
+- Graphs and charts
 
 > **Road‑map** is managed as GitHub Issues – see the **Projects** tab or Issues list.
 
