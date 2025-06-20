@@ -31,6 +31,7 @@ pip install -r requirements.txt   # file will appear once we add deps
 
 # run it
 python main.py
+```
 
 ---
 
