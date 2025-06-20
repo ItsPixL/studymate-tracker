@@ -29,13 +29,13 @@ def write_file(filename, data):
 # ----------------------- Add Subject ------------------------
 # ------------------------------------------------------------
 def add_subject(new_subject):
-    data = read_file(subjects)
-    if new_subject in data:
+    subjects_data = read_file(subjects)
+    if new_subject in subjects_data:
         print(Style.BRIGHT + Fore.YELLOW + "Subject already in list." + "\n")
         exit
     else:
-        data.append(new_subject)
-        write_file(subjects, data)
+        subjects_data.append(new_subject)
+        write_file(subjects, subjects_data)
         print(Style.BRIGHT + Fore.GREEN + "Successfully added subject!" + "\n")
     
     print(Style.BRIGHT + "-" * 50)
@@ -46,20 +46,20 @@ def add_subject(new_subject):
 # ------------------------------------------------------------
 def remove_subject(subject):
     # Remove subject from subjects file
-    data = read_file(subjects)
-    if subject in data:
-        data.remove(subject)
-        write_file(subjects, data)
+    subjects_data = read_file(subjects)
+    if subject in subjects_data:
+        subjects_data.remove(subject)
+        write_file(subjects, subjects_data)
     else:
         print(Style.BRIGHT + Fore.RED + "Subject not found in list." + "\n")
         exit
 
     # Remove any sessions associated with that subject
-    new_logs_data = []
-    logs_data = read_file(sessions)
-    for session in logs_data:
+    new_sessions_data = []
+    sessions_data = read_file(sessions)
+    for session in sessions_data:
         if session["subject"] == subject:
             print(Style.BRIGHT + Fore.GREEN + "Removed log: " + session["subject"] + " on " + session["date"] + " for " + str(session["duration"]) + " minutes ")
         else:
-            new_logs_data.append(session)
-    write_file(sessions, new_logs_data)
+            new_sessions_data.append(session)
+    write_file(sessions, new_sessions_data)
