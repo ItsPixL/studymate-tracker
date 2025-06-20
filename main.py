@@ -1,4 +1,4 @@
-from tracker import add_subject
+from tracker import add_subject, log_session
 
 # Startup CLI Menu
 def main():
@@ -10,17 +10,18 @@ def main():
         print("3. View all sessions")
         print("4. View total time")
         print("5. Exit")
+        print()
 
         # Get user input
         choice = input("Choose an option: ")
+        print()
 
         # Run something based on user input
         match choice:
             case "1":
                 add_subject()
             case "2":
-                # call log_session()
-                print(2)
+                log_session()
             case "3":
                 # call view_all_sessions()
                 print(3)
