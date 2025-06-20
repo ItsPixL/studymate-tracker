@@ -4,9 +4,9 @@ init(autoreset=True)
 
 # Startup CLI Menu
 def main():
+    print(Style.BRIGHT + "-" * 50)
     while True:
         # Print options
-        print()
         print(Style.BRIGHT + "📚 Welcome to " + Fore.CYAN + "StudyMate" + "\n")
         print(Fore.YELLOW + "1. " + Style.RESET_ALL + "Add subject")
         print(Fore.YELLOW + "2. " + Style.RESET_ALL + "Log session")
@@ -18,7 +18,7 @@ def main():
 
         # Get user input
         choice = input(Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
-        print()
+        print(Style.BRIGHT + "-" * 50)
 
         # Run something based on user input
         match choice:
