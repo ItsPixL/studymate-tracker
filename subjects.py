@@ -1,7 +1,5 @@
-from datetime import date
 from file_io import read_file, write_file, add_subject, remove_subject
 from colorama import init, Fore, Style
-from math import floor
 
 init(autoreset=True)
 subjects = "data/subjects.json"

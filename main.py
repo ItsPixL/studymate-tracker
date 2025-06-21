@@ -1,11 +1,15 @@
-from tracker import log_session, view_all_sessions, view_total_time
 from subjects import input_new_subject, input_subject_to_remove, list_subjects
+from sessions import log_session
+from stats import view_all_sessions, view_total_time
+
 from colorama import init, Fore, Style
 init(autoreset=True)
 
 def stop(): print("\n" + Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate " + Fore.RESET + "Your progress is saved: keep showing up, and the results will follow. Until next time, stay focused and keep learning!" + "\n")
 
-# Startup CLI Menu
+# ------------------------------------------------------------
+# ----------------------- Startup Menu -----------------------
+# ------------------------------------------------------------
 def main():
     print(Style.BRIGHT + "-" * 50)
     try:
@@ -23,7 +27,7 @@ def main():
             # Run something based on user input
             match choice:
                 case "1": edit_subjects()
-                case "2": log_session()
+                case "2": sessions()
                 case "3": stats()
                 case "4":
                     stop()
@@ -34,14 +38,16 @@ def main():
     except KeyboardInterrupt:
         stop()
 
-# Subjects Submenu
+# ------------------------------------------------------------
+# ---------------------- Subjects Menu -----------------------
+# ------------------------------------------------------------
 def edit_subjects():
     try:
         while True:
             # Print options
             print()
             print(Style.BRIGHT + Fore.RED + "-" * 30)
-            print(Style.BRIGHT + Fore.RED + "EDIT SUBJECTS")
+            print(Style.BRIGHT + Fore.RED + "SESSIONS")
             print(Style.BRIGHT + Fore.RED + "-" * 30)
 
             list = ["Add subject", "Remove subject", "List Subjects", "Back"]
@@ -61,8 +67,43 @@ def edit_subjects():
 
     except KeyboardInterrupt:
         stop()
+        exit
 
-# Stats Submenu
+
+# ------------------------------------------------------------
+# ---------------------- Sessions Menu -----------------------
+# ------------------------------------------------------------
+def sessions():
+    try:
+        while True:
+            # Print options
+            print()
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            print(Style.BRIGHT + Fore.RED + "EDIT SUBJECTS")
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+
+            list = ["Log session", "Start a timer", "Back"]
+            for item in list:
+                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
+
+            # Get user input
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            print(Style.BRIGHT + "-" * 50)
+
+            # Run something based on user input
+            match choice:
+                case "1": log_session()
+                case "2": print() # TODO
+                case "3": break
+
+    except KeyboardInterrupt:
+        stop()
+        exit
+
+
+# ------------------------------------------------------------
+# ------------------------ Stats Menu ------------------------
+# ------------------------------------------------------------
 def stats():
     try:
         while True:
@@ -89,6 +130,6 @@ def stats():
 
     except KeyboardInterrupt:
         stop()
-
+        exit
 
 main()

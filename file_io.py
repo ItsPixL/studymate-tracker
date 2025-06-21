@@ -1,12 +1,13 @@
 import json
 from colorama import init, Fore, Style
 init(autoreset=True)
+
 subjects = "data/subjects.json"
 sessions = "data/sessions.json"
 
 def click_to_cont():
     print(Style.BRIGHT + "-" * 50)
-    print(Style.BRIGHT + Fore.BLACK + "Click any Enter to continue.")
+    print(Style.BRIGHT + Fore.BLACK + "Click Enter to continue.")
     input()
     print()
 
