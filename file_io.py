@@ -4,6 +4,12 @@ init(autoreset=True)
 subjects = "data/subjects.json"
 sessions = "data/sessions.json"
 
+def click_to_cont():
+    print(Style.BRIGHT + "-" * 50)
+    print(Style.BRIGHT + Fore.BLACK + "Click any Enter to continue.")
+    input()
+    print()
+
 # ------------------------------------------------------------
 # ------------------------ Read File -------------------------
 # ------------------------------------------------------------
@@ -39,6 +45,7 @@ def add_subject(new_subject):
         print(Style.BRIGHT + Fore.GREEN + "Successfully added subject!" + "\n")
     
     print(Style.BRIGHT + "-" * 50)
+    click_to_cont()
 
 
 # ------------------------------------------------------------
@@ -55,11 +62,12 @@ def remove_subject(subject):
         exit
 
     # Remove any sessions associated with that subject
-    new_sessions_data = []
-    sessions_data = read_file(sessions)
-    for session in sessions_data:
+    new_logs_data = []
+    logs_data = read_file(sessions)
+    for session in logs_data:
         if session["subject"] == subject:
             print(Style.BRIGHT + Fore.GREEN + "Removed log: " + session["subject"] + " on " + session["date"] + " for " + str(session["duration"]) + " minutes ")
         else:
-            new_sessions_data.append(session)
-    write_file(sessions, new_sessions_data)
+            new_logs_data.append(session)
+    write_file(sessions, new_logs_data)
+    click_to_cont()

@@ -1,4 +1,5 @@
-from tracker import input_new_subject, log_session, input_subject_to_remove, view_all_sessions, view_total_time
+from tracker import log_session, view_all_sessions, view_total_time
+from subjects import input_new_subject, input_subject_to_remove, list_subjects
 from colorama import init, Fore, Style
 init(autoreset=True)
 
@@ -11,13 +12,68 @@ def main():
         while True:
             # Print options
             print(Style.BRIGHT + "📚 Welcome to " + Fore.CYAN + "StudyMate" + "\n")
-            print(Fore.YELLOW + "1. " + Style.RESET_ALL + "Add subject")
-            print(Fore.YELLOW + "2. " + Style.RESET_ALL + "Log session")
-            print(Fore.YELLOW + "3. " + Style.RESET_ALL + "View all sessions")
-            print(Fore.YELLOW + "4. " + Style.RESET_ALL + "View total time")
-            print(Fore.YELLOW + "5. " + Style.RESET_ALL + "Remove subject")
-            print(Fore.YELLOW + "6. " + Style.RESET_ALL + "Exit")
+            list = ["Edit subjects", "Log session", "Stats", "Exit"]
+            for item in list:
+                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
+
+            # Get user input
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            print(Style.BRIGHT + "-" * 50)
+
+            # Run something based on user input
+            match choice:
+                case "1": edit_subjects()
+                case "2": log_session()
+                case "3": stats()
+                case "4":
+                    stop()
+                    break
+                case _:
+                    print("Invalid input")
+
+    except KeyboardInterrupt:
+        stop()
+
+# Subjects Submenu
+def edit_subjects():
+    try:
+        while True:
+            # Print options
             print()
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            print(Style.BRIGHT + Fore.RED + "EDIT SUBJECTS")
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+
+            list = ["Add subject", "Remove subject", "List Subjects", "Back"]
+            for item in list:
+                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
+
+            # Get user input
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            print(Style.BRIGHT + "-" * 50)
+
+            # Run something based on user input
+            match choice:
+                case "1": input_new_subject()
+                case "2": input_subject_to_remove()
+                case "3": list_subjects()
+                case "4": break
+
+    except KeyboardInterrupt:
+        stop()
+
+# Stats Submenu
+def stats():
+    try:
+        while True:
+            # Print options
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            print(Style.BRIGHT + Fore.RED + "STATS")
+            print(Style.BRIGHT + Fore.RED + "-" * 30)
+
+            list = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Back"]
+            for item in list:
+                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
             # Get user input
             choice = input(Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
@@ -25,22 +81,14 @@ def main():
 
             # Run something based on user input
             match choice:
-                case "1":
-                    input_new_subject()
-                case "2":
-                    log_session()
-                case "3":
-                    view_all_sessions()
-                case "4":
-                    view_total_time()
-                case "5":
-                    input_subject_to_remove()
-                case "6":
-                    stop()
-                    break
-                case _:
-                    print("Invalid input")
+                case "1": view_all_sessions()
+                case "2": view_total_time()
+                case "3": print("") # TODO
+                case "4": print("") # TODO
+                case "5": break
+
     except KeyboardInterrupt:
         stop()
+
 
 main()
