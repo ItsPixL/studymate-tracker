@@ -1,5 +1,5 @@
 from subjects import input_new_subject, input_subject_to_remove, list_subjects
-from sessions import log_session
+from sessions import log_session, live_session
 from stats import view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
@@ -21,7 +21,7 @@ def main():
                  print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
             # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
             print(Style.BRIGHT + "-" * 50)
 
             # Run something based on user input
@@ -55,7 +55,7 @@ def edit_subjects():
                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
             # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
             print(Style.BRIGHT + "-" * 50)
 
             # Run something based on user input
@@ -64,10 +64,12 @@ def edit_subjects():
                 case "2": input_subject_to_remove()
                 case "3": list_subjects()
                 case "4": break
+                case _:
+                    print("Invalid input")
 
     except KeyboardInterrupt:
         stop()
-        exit
+        exit()
 
 
 # ------------------------------------------------------------
@@ -79,7 +81,7 @@ def sessions():
             # Print options
             print()
             print(Style.BRIGHT + Fore.RED + "-" * 30)
-            print(Style.BRIGHT + Fore.RED + "EDIT SUBJECTS")
+            print(Style.BRIGHT + Fore.RED + "LOG A SESSION")
             print(Style.BRIGHT + Fore.RED + "-" * 30)
 
             list = ["Log session", "Start a timer", "Back"]
@@ -87,18 +89,20 @@ def sessions():
                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
             # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
             print(Style.BRIGHT + "-" * 50)
 
             # Run something based on user input
             match choice:
                 case "1": log_session()
-                case "2": print() # TODO
+                case "2": live_session()
                 case "3": break
+                case _:
+                    print("Invalid input")
 
     except KeyboardInterrupt:
         stop()
-        exit
+        exit()
 
 
 # ------------------------------------------------------------
@@ -117,7 +121,7 @@ def stats():
                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
             # Get user input
-            choice = input(Style.BRIGHT + "Choose an option: " + Style.RESET_ALL) 
+            choice = input(Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
             print(Style.BRIGHT + "-" * 50)
 
             # Run something based on user input
@@ -127,9 +131,11 @@ def stats():
                 case "3": print("") # TODO
                 case "4": print("") # TODO
                 case "5": break
+                case _:
+                    print("Invalid input")
 
     except KeyboardInterrupt:
         stop()
-        exit
+        exit()
 
 main()

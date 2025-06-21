@@ -19,6 +19,8 @@ def conv_duration(duration):
         time = f"{hours} hour{'s' if hours != "1" else ''} " + str(duration % 60) + " minutes"
     elif duration == 60:
         time = "1 hour"
+    else:
+        time = "Invalid"
     return time
 
 
