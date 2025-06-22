@@ -1,5 +1,5 @@
 from subjects import input_new_subject, input_subject_to_remove, list_subjects
-from sessions import log_session_input, live_session
+from sessions import log_session_input, timer, stopwatch, pomodoro
 from stats import view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
@@ -84,7 +84,7 @@ def sessions():
             print(Style.BRIGHT + Fore.RED + "LOG A SESSION")
             print(Style.BRIGHT + Fore.RED + "-" * 30)
 
-            list = ["Log session", "Start a timer", "Back"]
+            list = ["Log session manually", "Start live session", "Back"]
             for item in list:
                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
@@ -103,6 +103,30 @@ def sessions():
     except KeyboardInterrupt:
         stop()
         exit()
+
+# ------------------------------------------------------------
+# -------------------- Live Sessions Menu --------------------
+# ------------------------------------------------------------
+def live_session():
+    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+    print(Style.BRIGHT + Fore.BLUE + "START A LIVE SESSION")
+    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+
+    print(Style.BRIGHT + Fore.CYAN + "Select a Mode")
+    list = ["Timer", "Stopwatch", "Pomodoro", "Back"]
+    for item in list:
+        print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
+
+    choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+    print(Style.BRIGHT + "-" * 50)
+
+    match choice:
+        case "1": timer()
+        case "2": stopwatch()
+        case "3": pomodoro()
+        case "4": exit()
+        case _:
+            print("Invalid input")
 
 
 # ------------------------------------------------------------

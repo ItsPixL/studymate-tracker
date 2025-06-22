@@ -14,15 +14,13 @@ def check_subject(subject):
         choice = input(Style.BRIGHT + "Subject not found! Would you like to add it to your subject's list? (y/n) " + Style.RESET_ALL).strip().lower()
         if choice in ("y", "yes"):
             add_subject(subject)
+            return True
         elif choice in ("n", "no"):
             print(Style.BRIGHT + Fore.RED + "Subject not added")
-            print()
-            return
+            return False
         else:
-            print(Style.BRIGHT + Fore.RED + "Invalid input" + "\n")
-            return
+            print(Style.BRIGHT + Fore.RED + "Invalid input")
 
-# 1
 # ------------------------------------------------------------
 # ------ Function for logging sessions to sessions file ------
 # ------------------------------------------------------------
@@ -45,6 +43,10 @@ def log_session(subject, duration):
     click_to_cont()
 
 
+# 1
+# ------------------------------------------------------------
+# ------ Function for user input to log session manually -----
+# ------------------------------------------------------------
 def log_session_input():
     print(Style.BRIGHT + Fore.BLUE + "-" * 30)
     print(Style.BRIGHT + Fore.BLUE + "LOG A SESSION")
@@ -52,7 +54,9 @@ def log_session_input():
 
 
     subject = input("Subject: ").strip()
-    check_subject(subject)
+    if check_subject(subject) == False:
+        print(Style.BRIGHT + Fore.RED + "Session not logged!" + "\n")
+        return
 
     while True:
         try:
@@ -61,7 +65,7 @@ def log_session_input():
                 raise ValueError
             break
         except ValueError:
-            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number"  + Style.RESET_ALL + "\n")
+            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number."  + Style.RESET_ALL + "\n")
 
     log_session(subject, duration)
 
@@ -69,30 +73,11 @@ def log_session_input():
 # ------------------------------------------------------------
 # ----------- Function for the live timer logging ------------
 # ------------------------------------------------------------
-def live_session():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "START A LIVE SESSION")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-
-    print(Style.BRIGHT + Fore.CYAN + "Select a Mode")
-    list = ["Timer", "Stopwatch", "Pomodoro", "Back"]
-    for item in list:
-        print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
-
-    choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
-    print(Style.BRIGHT + "-" * 50)
-
-    match choice:
-        case "1": timer()
-        case "2": stopwatch()
-        case "3": pomodoro()
-        case "4": exit()
-        case _:
-            print("Invalid input")
-
 def timer():
     subject = input("Subject: ").strip()
-    check_subject(subject)
+    if check_subject(subject) == False:
+        print(Style.BRIGHT + Fore.RED + "Session not logged!" + "\n")
+        return
 
     while True:
         try:
@@ -103,23 +88,25 @@ def timer():
                 raise ValueError
             break
         except ValueError:
-            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number"  + Style.RESET_ALL + "\n")
+            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number."  + Style.RESET_ALL + "\n")
 
-    while duration >= 0:
-        try:
+    try:
+        while duration >= 0:
             print(Style.BRIGHT, Fore.YELLOW, duration, "\r", end="")
             duration -= 1
             sleep(1)
-        except KeyboardInterrupt:
-            duration = 0
-            log_incomplete = (f"Would you like to log {original_time - duration} seconds or discard this session? (y/n)").strip().lower()
-            if log_incomplete in ("y", "yes"):
-                print() #######
-            elif log_incomplete in ("n", "no"):
-                print(Style.BRIGHT + Fore.RED + "Session not logged") ###############
-                print()
-                return
-            exit()
+
+        log_session(subject, duration)
+        
+    except KeyboardInterrupt:
+        log_incomplete = input(f"\n Would you like to log {(original_time - duration)} seconds or discard this session? (y/n)").strip().lower()
+        if log_incomplete in ("y", "yes"):
+            log_session(subject, (original_time - duration))
+        elif log_incomplete in ("n", "no"):
+            print(Style.BRIGHT + Fore.RED + "Session not logged") ###############
+            print()
+            return
+        exit()
 
     # TODO:
     # - Add subject entering
