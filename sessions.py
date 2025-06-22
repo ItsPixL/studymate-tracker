@@ -74,20 +74,19 @@ def log_session_input():
 # ----------- Function for the live timer logging ------------
 # ------------------------------------------------------------
 def conv_time_spent(duration):
-    if duration >= 3600:
-        hours = duration // 3600
-        minutes = duration % 3600 // 60
-        seconds = duration % 60
-        return f" {hours if hours > 0 else ''} {'hour' if hours > 0 else ''}{'s' if hours != 1 and hours > 0 else ''} {minutes if minutes > 0 else ''} {'minute' if minutes > 0 else ''}{'s' if minutes != 1 and minutes > 0 else ''} {seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+    parts = []
+    hours, remainder = divmod(duration, 3600)
+    minutes, seconds = divmod(remainder, 60)
 
-    elif 3600 > duration >= 60:
-        minutes = duration // 60
-        seconds = duration % 60
-        return f"{minutes if minutes > 0 else ''} {'minute' if minutes > 0 else ''}{'s' if minutes != 1 and minutes > 0 else ''} {seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+    if hours:
+        parts.append(f"{hours} hour{'s' if hours != 1 else ''}")
+    if minutes:
+        parts.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
+    if seconds or not parts:
+        parts.append(f"{seconds} second{'s' if seconds != 1 else ''}")
 
-    elif duration < 60:
-        seconds = duration % 60
-        return f"{seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+    return ' '.join(parts)
+
 
 def timer():
     subject = input("Subject: ").strip()
