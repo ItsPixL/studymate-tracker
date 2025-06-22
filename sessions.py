@@ -60,7 +60,7 @@ def log_session_input():
 
     while True:
         try:
-            duration = int(input(Style.BRIGHT + "Duration (minutes): " + Style.RESET_ALL).strip())
+            duration = int(input(Style.BRIGHT + "Duration (minutes): " + Style.RESET_ALL).strip()) * 60
             if duration <= 0:
                 raise ValueError
             break
@@ -73,6 +73,22 @@ def log_session_input():
 # ------------------------------------------------------------
 # ----------- Function for the live timer logging ------------
 # ------------------------------------------------------------
+def conv_time_spent(duration):
+    if duration >= 3600:
+        hours = duration // 3600
+        minutes = duration % 3600 // 60
+        seconds = duration % 60
+        return f" {hours if hours > 0 else ''} {'hour' if hours > 0 else ''}{'s' if hours != 1 and hours > 0 else ''} {minutes if minutes > 0 else ''} {'minute' if minutes > 0 else ''}{'s' if minutes != 1 and minutes > 0 else ''} {seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+
+    elif 3600 > duration >= 60:
+        minutes = duration // 60
+        seconds = duration % 60
+        return f"{minutes if minutes > 0 else ''} {'minute' if minutes > 0 else ''}{'s' if minutes != 1 and minutes > 0 else ''} {seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+
+    elif duration < 60:
+        seconds = duration % 60
+        return f"{seconds if seconds > 0 else ''} {'second' if seconds > 0 else ''}{'s' if seconds != 1 and seconds > 0 else ''}"
+
 def timer():
     subject = input("Subject: ").strip()
     if check_subject(subject) == False:
@@ -92,27 +108,24 @@ def timer():
 
     try:
         while duration >= 0:
-            print(Style.BRIGHT, Fore.YELLOW, duration, "\r", end="")
+            print(Style.BRIGHT, Fore.YELLOW, f" {conv_time_spent(duration)}", "\r", end="")
             duration -= 1
             sleep(1)
 
         log_session(subject, duration)
         
     except KeyboardInterrupt:
-        log_incomplete = input(f"\n Would you like to log {(original_time - duration)} seconds or discard this session? (y/n)").strip().lower()
+        log_incomplete = input(f"\n Would you like to log {conv_time_spent(original_time - duration)} (y) or discard this session (n)? ").strip().lower()
         if log_incomplete in ("y", "yes"):
-            log_session(subject, (original_time - duration))
+            log_session(subject, (original_time - duration) // 60)
         elif log_incomplete in ("n", "no"):
-            print(Style.BRIGHT + Fore.RED + "Session not logged") ###############
+            print(Style.BRIGHT + Fore.RED + "Session not logged")
             print()
             return
         exit()
 
     # TODO:
-    # - Add subject entering
-    # - Ctrl-C asks user if they want to log X minutes or discard session
     # - Timer shows hours, minutes, seconds (instead of just seconds)
-    # - Timer auto-logs
 
 def stopwatch(): print() # TODO
 def pomodoro(): print() # TODO
