@@ -116,7 +116,7 @@ def timer():
     except KeyboardInterrupt:
         log_incomplete = input(f"\n Would you like to log {conv_time_spent(original_time - duration)} (y) or discard this session (n)? ").strip().lower()
         if log_incomplete in ("y", "yes"):
-            log_session(subject, (original_time - duration) // 60)
+            log_session(subject, (original_time - duration))
         elif log_incomplete in ("n", "no"):
             print(Style.BRIGHT + Fore.RED + "Session not logged")
             print()
