@@ -8,17 +8,7 @@ init(autoreset=True)
 subjects = "data/subjects.json"
 sessions = "data/sessions.json"
 
-# 1
-# ------------------------------------------------------------
-# ------ Function for logging sessions to sessions file ------
-# ------------------------------------------------------------
-def log_session():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "LOG A SESSION")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-
-    subject = input("Subject: ").strip()
-
+def check_subject(subject):
     subjects_list = read_file(subjects)
     if subject not in subjects_list:
         choice = input(Style.BRIGHT + "Subject not found! Would you like to add it to your subject's list? (y/n) " + Style.RESET_ALL).strip().lower()
@@ -32,15 +22,11 @@ def log_session():
             print(Style.BRIGHT + Fore.RED + "Invalid input" + "\n")
             return
 
-    while True:
-        try:
-            duration = int(input(Style.BRIGHT + "Duration (minutes): " + Style.RESET_ALL).strip())
-            if duration <= 0:
-                raise ValueError
-            break
-        except ValueError:
-            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number"  + Style.RESET_ALL + "\n")
-
+# 1
+# ------------------------------------------------------------
+# ------ Function for logging sessions to sessions file ------
+# ------------------------------------------------------------
+def log_session(subject, duration):
     today = date.today().strftime("%Y-%m-%d")
 
     new_session = {
@@ -57,6 +43,27 @@ def log_session():
     print(Style.BRIGHT + "-" * 50)
 
     click_to_cont()
+
+
+def log_session_input():
+    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+    print(Style.BRIGHT + Fore.BLUE + "LOG A SESSION")
+    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+
+
+    subject = input("Subject: ").strip()
+    check_subject(subject)
+
+    while True:
+        try:
+            duration = int(input(Style.BRIGHT + "Duration (minutes): " + Style.RESET_ALL).strip())
+            if duration <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number"  + Style.RESET_ALL + "\n")
+
+    log_session(subject, duration)
 
 # 2
 # ------------------------------------------------------------
@@ -84,9 +91,13 @@ def live_session():
             print("Invalid input")
 
 def timer():
+    subject = input("Subject: ").strip()
+    check_subject(subject)
+
     while True:
         try:
             duration = int(input("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ").strip()) * 60
+            original_time = duration
             print()
             if duration <= 0:
                 raise ValueError
@@ -101,8 +112,20 @@ def timer():
             sleep(1)
         except KeyboardInterrupt:
             duration = 0
-            print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")   
+            log_incomplete = (f"Would you like to log {original_time - duration} seconds or discard this session? (y/n)").strip().lower()
+            if log_incomplete in ("y", "yes"):
+                print() #######
+            elif log_incomplete in ("n", "no"):
+                print(Style.BRIGHT + Fore.RED + "Session not logged") ###############
+                print()
+                return
             exit()
+
+    # TODO:
+    # - Add subject entering
+    # - Ctrl-C asks user if they want to log X minutes or discard session
+    # - Timer shows hours, minutes, seconds (instead of just seconds)
+    # - Timer auto-logs
 
 def stopwatch(): print() # TODO
 def pomodoro(): print() # TODO

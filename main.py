@@ -1,5 +1,5 @@
 from subjects import input_new_subject, input_subject_to_remove, list_subjects
-from sessions import log_session, live_session
+from sessions import log_session_input, live_session
 from stats import view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
@@ -94,11 +94,11 @@ def sessions():
 
             # Run something based on user input
             match choice:
-                case "1": log_session()
+                case "1": log_session_input()
                 case "2": live_session()
                 case "3": break
                 case _:
-                    print("Invalid input")
+                    print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number"  + Style.RESET_ALL + "\n")
 
     except KeyboardInterrupt:
         stop()
