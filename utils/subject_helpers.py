@@ -1,4 +1,5 @@
-from utils import subjects_file, add_subject, read_file
+from .utils import subjects_file, read_file
+from .file_io import add_subject
 from colorama import Fore, Style
 
 def check_subject(subject):

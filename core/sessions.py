@@ -1,6 +1,6 @@
 from datetime import date
 from time import sleep
-from utils import sessions_file, click_to_cont, conv_time_spent, read_file, write_file, check_subject
+from utils import sessions_file, click_to_cont, conv_time_spent, read_file, write_file, check_subject, print_header, get_user_choice
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -32,10 +32,7 @@ def log_session(subject, duration):
 # ------ Function for user input to log session manually -----
 # ------------------------------------------------------------
 def log_session_input():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "LOG A SESSION")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-
+    print_header("Log a session")
 
     subject = input("Subject: ").strip()
     if check_subject(subject) == False:
@@ -44,7 +41,7 @@ def log_session_input():
 
     while True:
         try:
-            duration = int(input(Style.BRIGHT + "Duration (minutes): " + Style.RESET_ALL).strip()) * 60
+            duration = int(get_user_choice("Duration (minutes): ")) * 60
             if duration <= 0:
                 raise ValueError
             break
@@ -58,15 +55,15 @@ def log_session_input():
 # ----------- Function for the live timer logging ------------
 # ------------------------------------------------------------
 
-def timer():
-    subject = input("Subject: ").strip()
+def timer_input():
+    subject = get_user_choice("Subject: ")
     if check_subject(subject) == False:
         print(Style.BRIGHT + Fore.RED + "Session not logged!" + "\n")
         return
 
     while True:
         try:
-            duration = int(input("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ").strip()) * 60
+            duration = int(get_user_choice("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ")) * 60
             original_time = duration
             print()
             if duration <= 0:
@@ -76,25 +73,48 @@ def timer():
             print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number."  + Style.RESET_ALL + "\n")
 
     try:
-        while duration >= 0:
-            print(Style.BRIGHT, Fore.YELLOW, f" {conv_time_spent(duration)}", "\r", end="")
-            duration -= 1
-            sleep(1)
-
-        log_session(subject, duration)
+        timer(duration, subject)
         
     except KeyboardInterrupt:
-        log_incomplete = input(f"\n Would you like to log {conv_time_spent(original_time - duration)} (y) or discard this session (n)? ").strip().lower()
+        print(Style.BRIGHT + Fore.RED + "Timer Paused!")
+        pause_choice = get_user_choice("Would you like to continue (y) or cancel (n)").lower()
+        timer_paused(pause_choice, duration, subject, original_time)
+
+def timer(seconds, subject):
+    remaining = seconds
+    while remaining > 0:
+        print(f"\r⏳ {conv_time_spent(remaining)}", end="")
+        sleep(1)
+        remaining -= 1
+
+    log_session(subject, seconds)
+
+def timer_paused(pause_choice, time_left, subject, original_time):
+    try:
+        if pause_choice in ("y", "yes"):
+            timer(time_left, subject)
+        elif pause_choice in ("n", "no"):
+            timer_cancelled(subject, original_time, time_left)
+        else:
+            raise ValueError
+    except ValueError:
+        print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter 'y' or 'no'."  + Style.RESET_ALL + "\n")
+
+def timer_cancelled(subject, original_time, duration):
+    try:
+        log_incomplete = get_user_choice(f"\n Would you like to log {conv_time_spent(original_time - duration)} (y) or discard this session (n)? ").lower()
         if log_incomplete in ("y", "yes"):
             log_session(subject, (original_time - duration))
         elif log_incomplete in ("n", "no"):
             print(Style.BRIGHT + Fore.RED + "Session not logged")
             print()
             return
-        exit()
+        else:
+            raise ValueError
+    except ValueError:
+        print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter 'y' or 'no'."  + Style.RESET_ALL + "\n")
 
-    # TODO:
-    # - Timer shows hours, minutes, seconds (instead of just seconds)
+
 
 def stopwatch(): print() # TODO
 def pomodoro(): print() # TODO

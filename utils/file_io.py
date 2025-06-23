@@ -1,5 +1,6 @@
 import json
-from utils import sessions_file, subjects_file, read_file, write_file, click_to_cont
+from .utils import sessions_file, subjects_file, read_file, write_file
+from .helpers import click_to_cont
 
 from colorama import init, Fore, Style
 init(autoreset=True)

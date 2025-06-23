@@ -1,7 +1,7 @@
 from .sessions import (
     log_session,
     log_session_input,
-    timer,
+    timer_input,
     stopwatch,
     pomodoro,
 )
@@ -20,7 +20,7 @@ from .subjects import (
 __all__ = [
     "log_session",
     "log_session_input",
-    "timer",
+    "timer_input",
     "stopwatch",
     "pomodoro",
     "view_all_sessions",

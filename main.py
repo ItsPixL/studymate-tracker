@@ -1,7 +1,5 @@
-from utils.helpers import print_menu, get_user_choice
-from core.subjects import input_new_subject, input_subject_to_remove, list_subjects
-from core.sessions import log_session_input, timer, stopwatch, pomodoro
-from core.stats import view_all_sessions, view_total_time
+from utils import print_menu, get_user_choice
+from core import input_new_subject, input_subject_to_remove, list_subjects, log_session_input, timer_input, stopwatch, pomodoro, view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -10,13 +8,6 @@ def stop():
     print("\n" + Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate " +
           Fore.RESET + "Your progress is saved: keep showing up, and the results will follow. "
                        "Until next time, stay focused and keep learning!\n")
-
-# ------------------------------------------------------------
-# -------------------- Reusable Functions --------------------
-# ------------------------------------------------------------
-# Reusable Print Menu Function
-
-
 
 # ------------------------------------------------------------
 # ----------------------- Startup Menu -----------------------
@@ -105,7 +96,7 @@ def live_session():
     print(Style.BRIGHT + "-" * 50)
 
     match choice:
-        case "1": timer()
+        case "1": timer_input()
         case "2": stopwatch()
         case "3": pomodoro()
         case "4": return
@@ -138,4 +129,5 @@ def stats():
         stop()
         exit()
 
-main()
+if __name__ == "__main__":
+    main()

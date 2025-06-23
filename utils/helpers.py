@@ -9,10 +9,10 @@ def click_to_cont():
     print()
 
 # Print Header
-def print_header(title):
-    print(Style.BRIGHT + Fore.RED + "-" * 30)
-    print(Style.BRIGHT + Fore.RED + title.upper())
-    print(Style.BRIGHT + Fore.RED + "-" * 30)
+def print_header(title, color=Fore.RED):
+    print(Style.BRIGHT + color + "-" * 30)
+    print(Style.BRIGHT + color + title.upper())
+    print(Style.BRIGHT + color + "-" * 30)
 
 # Print Menu
 def print_menu(title, options):

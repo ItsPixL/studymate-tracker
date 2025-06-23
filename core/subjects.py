@@ -1,26 +1,17 @@
-from utils import read_file, add_subject, remove_subject
+from utils import read_file, add_subject, remove_subject, click_to_cont, print_header, get_user_choice
 from colorama import init, Fore, Style
 
 init(autoreset=True)
 subjects = "data/subjects.json"
 sessions = "data/sessions.json"
 
-def click_to_cont():
-    print(Style.BRIGHT + "-" * 50)
-    print(Style.BRIGHT + Fore.BLACK + "Click any Enter to continue.")
-    input()
-    print()
-
 # 1
 # ------------------------------------------------------------
 # ------- Function for adding subject to subjects file -------
 # ------------------------------------------------------------
 def input_new_subject():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "ADD A SUBJECT")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-
-    new_subject = input(Style.BRIGHT + "Subject Name: " + Style.RESET_ALL).strip()
+    print_header("Add new subject", Fore.BLUE)
+    new_subject = get_user_choice("Subject Name: ")
     add_subject(new_subject)
 
 # 2
@@ -28,13 +19,12 @@ def input_new_subject():
 # ----- Function for removing subject from subjects file -----
 # ------------------------------------------------------------
 def input_subject_to_remove():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "REMOVE A SUBJECT")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-
-    removal_subject = input(Style.BRIGHT + "Subject Name: " + Style.RESET_ALL).strip()
-
-    warning_res = input(Style.BRIGHT + Fore.YELLOW + "⚠️ WARNING: " + Style.NORMAL + "Are you sure you want to permanently remove this subject? This will delete any sessions associated with that subject. (y/n) " + Style.RESET_ALL).strip().lower()
+    print_header("Remove a subject", Fore.BLUE)
+    removal_subject = get_user_choice("Subject Name: ")
+    warning_res = get_user_choice(
+        Fore.YELLOW + "⚠️ WARNING: " + 
+        Style.NORMAL + "Are you sure you want to permanently remove this subject? This will delete any sessions associated with that subject. (y/n) "
+    ).lower()
 
     if warning_res in ("y", "yes"):
         remove_subject(removal_subject)
@@ -42,7 +32,7 @@ def input_subject_to_remove():
     elif warning_res in ("n", "no"):
         print(Style.BRIGHT + Fore.GREEN + "Stopping Removal" + "\n")
         print(Style.BRIGHT + "-" * 50)
-        exit
+        exit()
 
     click_to_cont()
 
