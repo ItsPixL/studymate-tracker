@@ -1,4 +1,4 @@
-from utils import sessions_file, click_to_cont, read_file, conv_time_spent
+from utils import sessions_file, click_to_cont, read_file, conv_time_spent, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
 
@@ -7,9 +7,7 @@ init(autoreset=True)
 # -------------------- View All Sessions ---------------------
 # ------------------------------------------------------------
 def view_all_sessions():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "VIEW ALL SESSIONS")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+    print_header("View all sessions", Fore.BLUE)
 
     sessions_data = read_file(sessions_file)
     if sessions_data:
@@ -36,9 +34,7 @@ def view_all_sessions():
 # --------------------- View Total Time ----------------------
 # ------------------------------------------------------------
 def view_total_time():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "VIEW TOTAL STUDY TIME")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+    print_header("View total study time", Fore.BLUE)
 
     sessions_data = read_file(sessions_file)
     if sessions_data:

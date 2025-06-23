@@ -12,7 +12,7 @@ def add_subject(new_subject):
     subjects_data = read_file(subjects_file)
     if new_subject in subjects_data:
         print(Style.BRIGHT + Fore.YELLOW + "Subject already in list." + "\n")
-        exit()
+        return False
     else:
         subjects_data.append(new_subject)
         write_file(subjects_file, subjects_data)
@@ -20,7 +20,6 @@ def add_subject(new_subject):
     
     print(Style.BRIGHT + "-" * 50)
     click_to_cont()
-
 
 # ------------------------------------------------------------
 # ---------------------- Remove Subject ----------------------

@@ -9,7 +9,12 @@ init(autoreset=True)
 def input_new_subject():
     print_header("Add new subject")
     new_subject = get_user_choice("Subject Name: ")
-    add_subject(new_subject)
+    if new_subject:
+        add_subject(new_subject)
+    else:
+        print(Fore.RED + "Subject name cannot be empty.")
+    click_to_cont()
+
 
 # 2
 # ------------------------------------------------------------
@@ -29,7 +34,7 @@ def input_subject_to_remove():
     elif warning_res in ("n", "no"):
         print(Style.BRIGHT + Fore.GREEN + "Stopping Removal" + "\n")
         print(Style.BRIGHT + "-" * 50)
-        exit()
+        return
 
     click_to_cont()
 
