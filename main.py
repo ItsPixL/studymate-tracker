@@ -1,11 +1,22 @@
 from subjects import input_new_subject, input_subject_to_remove, list_subjects
+from helpers import print_menu, get_user_choice 
 from sessions import log_session_input, timer, stopwatch, pomodoro
 from stats import view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
 init(autoreset=True)
 
-def stop(): print("\n" + Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate " + Fore.RESET + "Your progress is saved: keep showing up, and the results will follow. Until next time, stay focused and keep learning!" + "\n")
+def stop():
+    print("\n" + Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate " +
+          Fore.RESET + "Your progress is saved: keep showing up, and the results will follow. "
+                       "Until next time, stay focused and keep learning!\n")
+
+# ------------------------------------------------------------
+# -------------------- Reusable Functions --------------------
+# ------------------------------------------------------------
+# Reusable Print Menu Function
+
+
 
 # ------------------------------------------------------------
 # ----------------------- Startup Menu -----------------------
@@ -14,17 +25,14 @@ def main():
     print(Style.BRIGHT + "-" * 50)
     try:
         while True:
-            # Print options
             print(Style.BRIGHT + "📚 Welcome to " + Fore.CYAN + "StudyMate" + "\n")
-            list = ["Edit subjects", "Log session", "Stats", "Exit"]
-            for item in list:
-                 print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
 
-            # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+            options = ["Edit subjects", "Log session", "Stats", "Exit"]
+            print_menu("Main Menu", options)
+
+            choice = get_user_choice()
             print(Style.BRIGHT + "-" * 50)
 
-            # Run something based on user input
             match choice:
                 case "1": edit_subjects()
                 case "2": sessions()
@@ -44,21 +52,12 @@ def main():
 def edit_subjects():
     try:
         while True:
-            # Print options
-            print()
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
-            print(Style.BRIGHT + Fore.RED + "SESSIONS")
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            options = ["Add subject", "Remove subject", "List Subjects", "Back"]
+            print_menu("Subjects", options)
 
-            list = ["Add subject", "Remove subject", "List Subjects", "Back"]
-            for item in list:
-                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
-
-            # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+            choice = get_user_choice()
             print(Style.BRIGHT + "-" * 50)
 
-            # Run something based on user input
             match choice:
                 case "1": input_new_subject()
                 case "2": input_subject_to_remove()
@@ -78,21 +77,12 @@ def edit_subjects():
 def sessions():
     try:
         while True:
-            # Print options
-            print()
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
-            print(Style.BRIGHT + Fore.RED + "LOG A SESSION")
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            options = ["Log session manually", "Start live session", "Back"]
+            print_menu("Log a Session", options)
 
-            list = ["Log session manually", "Start live session", "Back"]
-            for item in list:
-                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
-
-            # Get user input
-            choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+            choice = get_user_choice()
             print(Style.BRIGHT + "-" * 50)
 
-            # Run something based on user input
             match choice:
                 case "1": log_session_input()
                 case "2": live_session()
@@ -108,23 +98,17 @@ def sessions():
 # -------------------- Live Sessions Menu --------------------
 # ------------------------------------------------------------
 def live_session():
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
-    print(Style.BRIGHT + Fore.BLUE + "START A LIVE SESSION")
-    print(Style.BRIGHT + Fore.BLUE + "-" * 30)
+    options = ["Timer", "Stopwatch", "Pomodoro", "Back"]
+    print_menu("Start a live session", options)
 
-    print(Style.BRIGHT + Fore.CYAN + "Select a Mode")
-    list = ["Timer", "Stopwatch", "Pomodoro", "Back"]
-    for item in list:
-        print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
-
-    choice = input("\n" + Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+    choice = get_user_choice()
     print(Style.BRIGHT + "-" * 50)
 
     match choice:
         case "1": timer()
         case "2": stopwatch()
         case "3": pomodoro()
-        case "4": exit()
+        case "4": return
         case _:
             print("Invalid input")
 
@@ -135,20 +119,12 @@ def live_session():
 def stats():
     try:
         while True:
-            # Print options
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
-            print(Style.BRIGHT + Fore.RED + "STATS")
-            print(Style.BRIGHT + Fore.RED + "-" * 30)
+            options = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Back"]
+            print_menu("Stats", options)
 
-            list = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Back"]
-            for item in list:
-                print(Fore.YELLOW + f"{list.index(item) + 1}. " + Style.RESET_ALL + item)
-
-            # Get user input
-            choice = input(Style.BRIGHT + "Choose an option: " + Style.RESET_ALL).strip()
+            choice = get_user_choice()
             print(Style.BRIGHT + "-" * 50)
 
-            # Run something based on user input
             match choice:
                 case "1": view_all_sessions()
                 case "2": view_total_time()

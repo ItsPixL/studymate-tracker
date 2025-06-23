@@ -1,10 +1,9 @@
-from file_io import read_file, write_file, add_subject, remove_subject, click_to_cont
+from file_io import read_file
+from helpers import click_to_cont
+from utils import subjects_file, sessions_file
 from sessions import conv_time_spent
 from colorama import init, Fore, Style
 init(autoreset=True)
-
-subjects = "data/subjects.json"
-sessions = "data/sessions.json"
 
 # 1
 # # ------------------------------------------------------------
@@ -15,7 +14,7 @@ def view_all_sessions():
     print(Style.BRIGHT + Fore.BLUE + "VIEW ALL SESSIONS")
     print(Style.BRIGHT + Fore.BLUE + "-" * 30)
 
-    sessions_data = read_file(sessions)
+    sessions_data = read_file(sessions_file)
     if sessions_data:
         for session in sessions_data:
             subject = session["subject"]
@@ -23,7 +22,11 @@ def view_all_sessions():
             duration = session["duration"]
             time = conv_time_spent(duration)
 
-            print("📕 " + Style.BRIGHT + Fore.RED + "Subject: " + Style.RESET_ALL + f"{subject:12}" + " | 📅 " + date + " | ⌚ " + time)
+            print(
+                "📕 " + 
+                Style.BRIGHT + Fore.RED + "Subject: " + 
+                Style.RESET_ALL + f"{subject:12}" + " | 📅 " + date + " | ⌚ " + time
+            )
     
     else:
         print(Style.BRIGHT + Fore.RED + "No sessions have been recorded! Use the sessions menu to get started.")
@@ -40,15 +43,15 @@ def view_total_time():
     print(Style.BRIGHT + Fore.BLUE + "VIEW TOTAL STUDY TIME")
     print(Style.BRIGHT + Fore.BLUE + "-" * 30)
 
-    sessions_data = read_file(sessions)
+    sessions_data = read_file(sessions_file)
     if sessions_data:
         totals = {}
         for session in sessions_data:
             subject = session["subject"]
             totals[subject] = totals.get(subject, 0) + session["duration"]
 
-        for subject in totals:
-            time = conv_time_spent(totals[subject])
+        for subject, total in totals.items():
+            time = conv_time_spent(total)
             print("📗 " + Style.BRIGHT + Fore.GREEN + subject + ": " + Style.RESET_ALL + time) 
 
     else:

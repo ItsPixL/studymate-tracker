@@ -1,25 +1,12 @@
 from datetime import date
 from time import sleep
-from file_io import read_file, write_file, add_subject, remove_subject, click_to_cont
+from file_io import read_file, write_file, add_subject
+from helpers import click_to_cont
+from utils import conv_time_spent, subjects_file, sessions_file
+from subject_helpers import check_subject
 
 from colorama import init, Fore, Style
 init(autoreset=True)
-
-subjects = "data/subjects.json"
-sessions = "data/sessions.json"
-
-def check_subject(subject):
-    subjects_list = read_file(subjects)
-    if subject not in subjects_list:
-        choice = input(Style.BRIGHT + "Subject not found! Would you like to add it to your subject's list? (y/n) " + Style.RESET_ALL).strip().lower()
-        if choice in ("y", "yes"):
-            add_subject(subject)
-            return True
-        elif choice in ("n", "no"):
-            print(Style.BRIGHT + Fore.RED + "Subject not added")
-            return False
-        else:
-            print(Style.BRIGHT + Fore.RED + "Invalid input")
 
 # ------------------------------------------------------------
 # ------ Function for logging sessions to sessions file ------
@@ -33,9 +20,9 @@ def log_session(subject, duration):
         "duration": duration,
     }
 
-    sessions_data = read_file(sessions)
+    sessions_data = read_file(sessions_file)
     sessions_data.append(new_session)
-    write_file(sessions, sessions_data)
+    write_file(sessions_file, sessions_data)
 
     print(Style.BRIGHT + Fore.GREEN + "\nSuccessfully logged session!" + "\n")
     print(Style.BRIGHT + "-" * 50)
@@ -73,20 +60,6 @@ def log_session_input():
 # ------------------------------------------------------------
 # ----------- Function for the live timer logging ------------
 # ------------------------------------------------------------
-def conv_time_spent(duration):
-    parts = []
-    hours, remainder = divmod(duration, 3600)
-    minutes, seconds = divmod(remainder, 60)
-
-    if hours:
-        parts.append(f"{hours} hour{'s' if hours != 1 else ''}")
-    if minutes:
-        parts.append(f"{minutes} minute{'s' if minutes != 1 else ''}")
-    if seconds or not parts:
-        parts.append(f"{seconds} second{'s' if seconds != 1 else ''}")
-
-    return ' '.join(parts)
-
 
 def timer():
     subject = input("Subject: ").strip()
