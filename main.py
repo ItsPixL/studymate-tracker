@@ -1,7 +1,7 @@
-from subjects import input_new_subject, input_subject_to_remove, list_subjects
-from helpers import print_menu, get_user_choice 
-from sessions import log_session_input, timer, stopwatch, pomodoro
-from stats import view_all_sessions, view_total_time
+from utils.helpers import print_menu, get_user_choice
+from core.subjects import input_new_subject, input_subject_to_remove, list_subjects
+from core.sessions import log_session_input, timer, stopwatch, pomodoro
+from core.stats import view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
 init(autoreset=True)

@@ -1,4 +1,4 @@
-from file_io import read_file, write_file, add_subject, remove_subject
+from utils import read_file, add_subject, remove_subject
 from colorama import init, Fore, Style
 
 init(autoreset=True)

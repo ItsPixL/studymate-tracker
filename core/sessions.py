@@ -1,9 +1,6 @@
 from datetime import date
 from time import sleep
-from file_io import read_file, write_file, add_subject
-from helpers import click_to_cont
-from utils import conv_time_spent, subjects_file, sessions_file
-from subject_helpers import check_subject
+from utils import sessions_file, click_to_cont, conv_time_spent, read_file, write_file, check_subject
 
 from colorama import init, Fore, Style
 init(autoreset=True)

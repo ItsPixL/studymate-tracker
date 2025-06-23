@@ -1,7 +1,4 @@
-from file_io import read_file
-from helpers import click_to_cont
-from utils import subjects_file, sessions_file
-from sessions import conv_time_spent
+from utils import sessions_file, click_to_cont, read_file, conv_time_spent
 from colorama import init, Fore, Style
 init(autoreset=True)
 
