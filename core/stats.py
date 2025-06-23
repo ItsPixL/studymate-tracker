@@ -1,7 +1,5 @@
 from base import all_sessions, total_time
-from cli_utils import get_time_string
-
-from utils import sessions_file, click_to_cont, read_file, conv_time_spent, print_header
+from cli_utils import get_time_string, click_to_cont, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
 
