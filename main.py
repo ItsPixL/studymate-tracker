@@ -5,8 +5,8 @@ from colorama import init, Fore, Style
 init(autoreset=True)
 
 def stop():
-    print("\n" + Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate " +
-          Fore.RESET + "Your progress is saved: keep showing up, and the results will follow. "
+    print(Style.BRIGHT + "Thanks for using" + Fore.CYAN + " StudyMate" +
+          Fore.RESET + ". Your progress is saved: keep showing up, and the results will follow. "
                        "Until next time, stay focused and keep learning!\n")
 
 # ------------------------------------------------------------
