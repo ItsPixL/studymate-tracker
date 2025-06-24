@@ -1,5 +1,6 @@
 from .utils import SESSIONS, read_file, convert_seconds
 
+# --------------------------------------------------------------------
 # List all sessions
 def all_sessions():
     sessions_data = read_file(SESSIONS)
@@ -10,7 +11,9 @@ def all_sessions():
         return data
     
     else: return False
-    
+
+
+# --------------------------------------------------------------------
 # List total time
 def total_time():
     sessions_data = read_file(SESSIONS)

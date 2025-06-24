@@ -1,9 +1,11 @@
 import json
+from datetime import date
 
 # --------------------------------------------------------------------
 # Variables
 SUBJECTS = "data/subjects.json"
 SESSIONS = "data/sessions.json"
+
 
 # --------------------------------------------------------------------
 # Read File
@@ -90,3 +92,20 @@ def check_subject(subject):
         return False
     else: 
         return True
+
+# --------------------------------------------------------------------
+# Log session
+def log_session(subject, duration):
+    today = date.today().strftime("%Y-%m-%d")
+
+    new_session = {
+        "subject": subject,
+        "date": today,
+        "duration": duration,
+    }
+
+    sessions_data = read_file(SESSIONS)
+    sessions_data.append(new_session)
+    write_file(SESSIONS, sessions_data)
+    
+    return True

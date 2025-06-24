@@ -3,10 +3,8 @@ from cli_utils import get_time_string, click_to_cont, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
 
-# 1
-# # ------------------------------------------------------------
-# -------------------- View All Sessions ---------------------
-# ------------------------------------------------------------
+# --------------------------------------------------------------------
+# View all sessions
 def view_all_sessions():
     print_header("View all sessions", Fore.BLUE)
     data = all_sessions()
@@ -26,10 +24,8 @@ def view_all_sessions():
     click_to_cont()
 
 
-# 2
-# ------------------------------------------------------------
-# --------------------- View Total Time ----------------------
-# ------------------------------------------------------------
+# --------------------------------------------------------------------
+# View total time
 def view_total_time():
     print_header("View total study time", Fore.BLUE)
     data = total_time()

@@ -1,5 +1,5 @@
-from utils import print_menu, get_user_choice
-from cli_core import input_new_subject, input_subject_to_remove, list_subjects, log_session_input, timer_input, stopwatch, pomodoro, view_all_sessions, view_total_time
+from cli_utils import print_cli_menu, get_cli_input
+from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timer_input, stopwatch_input, pomodoro_input, view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -19,9 +19,9 @@ def main():
             print(Style.BRIGHT + "📚 Welcome to " + Fore.CYAN + "StudyMate" + "\n")
 
             options = ["Edit subjects", "Log session", "Stats", "Exit"]
-            print_menu("Main Menu", options)
+            print_cli_menu("Main Menu", options)
 
-            choice = get_user_choice()
+            choice = get_cli_input()
             print(Style.BRIGHT + "-" * 50)
 
             match choice:
@@ -44,15 +44,15 @@ def edit_subjects():
     try:
         while True:
             options = ["Add subject", "Remove subject", "List Subjects", "Back"]
-            print_menu("Subjects", options)
+            print_cli_menu("Subjects", options)
 
-            choice = get_user_choice()
+            choice = get_cli_input()
             print(Style.BRIGHT + "-" * 50)
 
             match choice:
-                case "1": input_new_subject()
+                case "1": input_subject_to_add()
                 case "2": input_subject_to_remove()
-                case "3": list_subjects()
+                case "3": print_subjects()
                 case "4": break
                 case _:
                     print("Invalid input")
@@ -69,9 +69,9 @@ def sessions():
     try:
         while True:
             options = ["Log session manually", "Start live session", "Back"]
-            print_menu("Log a Session", options)
+            print_cli_menu("Log a Session", options)
 
-            choice = get_user_choice()
+            choice = get_cli_input()
             print(Style.BRIGHT + "-" * 50)
 
             match choice:
@@ -90,15 +90,15 @@ def sessions():
 # ------------------------------------------------------------
 def live_session():
     options = ["Timer", "Stopwatch", "Pomodoro", "Back"]
-    print_menu("Start a live session", options)
+    print_cli_menu("Start a live session", options)
 
-    choice = get_user_choice()
+    choice = get_cli_input()
     print(Style.BRIGHT + "-" * 50)
 
     match choice:
         case "1": timer_input()
-        case "2": stopwatch()
-        case "3": pomodoro()
+        case "2": stopwatch_input()
+        case "3": pomodoro_input()
         case "4": return
         case _:
             print("Invalid input")
@@ -111,9 +111,9 @@ def stats():
     try:
         while True:
             options = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Back"]
-            print_menu("Stats", options)
+            print_cli_menu("Stats", options)
 
-            choice = get_user_choice()
+            choice = get_cli_input()
             print(Style.BRIGHT + "-" * 50)
 
             match choice:

@@ -1,120 +1,75 @@
-from datetime import date
 from time import sleep
-from utils import sessions_file, click_to_cont, conv_time_spent, read_file, write_file, check_subject, print_header, get_user_choice
+from base import log_session, check_if_subject_exists, convert_seconds
+from cli_utils import print_header, get_cli_input, get_positive_int, click_to_cont, ask_to_add_subject, y_or_n_input, get_time_string
 
 from colorama import init, Fore, Style
 init(autoreset=True)
 
-# ------------------------------------------------------------
-# ------ Function for logging sessions to sessions file ------
-# ------------------------------------------------------------
-def log_session(subject, duration):
-    today = date.today().strftime("%Y-%m-%d")
-
-    new_session = {
-        "subject": subject,
-        "date": today,
-        "duration": duration,
-    }
-
-    sessions_data = read_file(sessions_file)
-    sessions_data.append(new_session)
-    write_file(sessions_file, sessions_data)
-
-    print(Style.BRIGHT + Fore.GREEN + "\nSuccessfully logged session!" + "\n")
-    print(Style.BRIGHT + "-" * 50)
-
-    click_to_cont()
-
-
-# 1
-# ------------------------------------------------------------
-# ------ Function for user input to log session manually -----
-# ------------------------------------------------------------
+# --------------------------------------------------------------------
+# Log session
 def log_session_input():
     print_header("Log a session")
-
-    subject = input("Subject: ").strip()
-    if check_subject(subject) == False:
-        print(Style.BRIGHT + Fore.RED + "Session not logged!" + "\n")
-        return
+    subject = get_cli_input("Subject: ")
 
     while True:
-        try:
-            duration = int(get_user_choice("Duration (minutes): ")) * 60
-            if duration <= 0:
-                raise ValueError
+        if check_if_subject_exists(subject):
+            duration = get_positive_int("Duration (minutes): ")
+            if log_session(subject, duration):
+                print(Style.BRIGHT + Fore.GREEN + "Session logged successfully!\n")
+            click_to_cont()
             break
-        except ValueError:
-            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number."  + Style.RESET_ALL + "\n")
+        else:
+            if not ask_to_add_subject(subject):
+                print(Style.BRIGHT + Fore.RED + "Session not logged!\n")
+                click_to_cont()
+                break
 
-    log_session(subject, duration)
 
-# 2
-# ------------------------------------------------------------
-# ----------- Function for the live timer logging ------------
-# ------------------------------------------------------------
-
+# --------------------------------------------------------------------
+# Live Timer Logging
 def timer_input():
-    subject = get_user_choice("Subject: ")
-    if check_subject(subject) == False:
-        print(Style.BRIGHT + Fore.RED + "Session not logged!" + "\n")
-        return
-
+    subject = get_cli_input("Subject: ")
     while True:
-        try:
-            duration = int(get_user_choice("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ")) * 60
-            original_time = duration
-            print()
-            if duration <= 0:
-                raise ValueError
-            break
-        except ValueError:
-            print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter a positive whole number."  + Style.RESET_ALL + "\n")
+        if check_if_subject_exists(subject): break
+        else:
+            print(Style.BRIGHT + Fore.RED + "Subject does not exist!" + "\n")
+            if not ask_to_add_subject(subject):
+                print(Style.BRIGHT + Fore.RED + "Session not logged!\n")
+                click_to_cont()
+                return
+        
+
+    duration = get_positive_int("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ") * 60
+    original_time = duration
 
     try:
-        timer(duration, subject)
-        
+        timer(subject, duration)
     except KeyboardInterrupt:
         print(Style.BRIGHT + Fore.RED + "Timer Paused!")
-        pause_choice = get_user_choice("Would you like to continue (y) or cancel (n)").lower()
-        timer_paused(pause_choice, duration, subject, original_time)
+        timer_paused(duration, subject, original_time)
 
-def timer(seconds, subject):
+def timer(subject, seconds):
     remaining = seconds
     while remaining > 0:
-        print(f"\r⏳ {conv_time_spent(remaining)}", end="")
+        print(" ", get_time_string(convert_seconds(remaining)), "\r", end="")
         sleep(1)
         remaining -= 1
 
     log_session(subject, seconds)
 
-def timer_paused(pause_choice, time_left, subject, original_time):
-    try:
-        if pause_choice in ("y", "yes"):
-            timer(time_left, subject)
-        elif pause_choice in ("n", "no"):
-            timer_cancelled(subject, original_time, time_left)
-        else:
-            raise ValueError
-    except ValueError:
-        print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter 'y' or 'no'."  + Style.RESET_ALL + "\n")
+def timer_paused(time_left, subject, original_time):
+    y_or_n_input(
+        "Would you like to continue (y) or cancel (n)? ", 
+        lambda: timer(time_left, subject),
+        timer_cancelled(subject, original_time, time_left),
+    )
 
 def timer_cancelled(subject, original_time, duration):
-    try:
-        log_incomplete = get_user_choice(f"\n Would you like to log {conv_time_spent(original_time - duration)} (y) or discard this session (n)? ").lower()
-        if log_incomplete in ("y", "yes"):
-            log_session(subject, (original_time - duration))
-        elif log_incomplete in ("n", "no"):
-            print(Style.BRIGHT + Fore.RED + "Session not logged")
-            print()
-            return
-        else:
-            raise ValueError
-    except ValueError:
-        print(Style.BRIGHT + Fore.RED + "Invalid input. Please enter 'y' or 'no'."  + Style.RESET_ALL + "\n")
+    y_or_n_input(
+        f"\n Would you like to log {convert_seconds(original_time - duration)} (y) or discard this session (n)? ",
+        log_session(subject, (original_time - duration)),
+        print(Style.BRIGHT + Fore.RED + "Session not logged" + "\n")
+    )
 
-
-
-def stopwatch(): print() # TODO
-def pomodoro(): print() # TODO
+def stopwatch_input(): print() # TODO
+def pomodoro_input(): print() # TODO

@@ -7,12 +7,17 @@ from .utils import (
     remove_subject,
     list_subjects,
     convert_seconds,
-    check_subject
+    check_subject,
+    log_session
 )
 
 from .sessions_base import (
     all_sessions,
     total_time
+)
+
+from .subjects_base import (
+    check_if_subject_exists
 )
 
 __all__ = [
@@ -25,7 +30,10 @@ __all__ = [
     "list_subjects",
     "convert_seconds",
     "check_subject",
+    "log_session",
     
     "all_sessions",
-    "total_time"
+    "total_time",
+
+    "check_if_subject_exists"
 ]
