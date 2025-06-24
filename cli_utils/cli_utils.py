@@ -2,10 +2,14 @@ from base import add_subject
 from colorama import init, Fore, Style
 init(autoreset=True)
 
+
+# --------------------------------------------------------------------
 # Print divider
 def print_divider(color=Fore.WHITE):
-    print(Style.BRIGHT + color + "-" * 50)
+    print("\n" + Style.BRIGHT + color + "-" * 50 + "\n")
 
+
+# --------------------------------------------------------------------
 # Convert time tuple to string
 def get_time_string(tuple):
     parts = []
@@ -19,31 +23,40 @@ def get_time_string(tuple):
 
     return ' '.join(parts)
 
+
+# --------------------------------------------------------------------
 # Click Enter to Continue
 def click_to_cont():
-    print(Style.BRIGHT + "-" * 50)
     print(Style.BRIGHT + Fore.BLACK + "Click Enter to continue.")
+    print(Style.BRIGHT + "-" * 50)
     input()
-    print()
 
+
+# --------------------------------------------------------------------
 # Print Header
-def print_header(title, color=Fore.RED):
+def print_header(title, color=Fore.BLUE):
     print(Style.BRIGHT + color + "-" * 30)
     print(Style.BRIGHT + color + title.upper())
     print(Style.BRIGHT + color + "-" * 30)
 
+
+# --------------------------------------------------------------------
 # Print CLI Menu
 def print_cli_menu(title, options):
-    print()
     print_header(title)
 
     for i, option in enumerate(options, 1):
         print(Fore.YELLOW + f"{i}. " + Style.RESET_ALL + option)
 
+    print()
+
+# --------------------------------------------------------------------
 # Reusable Input Handler
 def get_cli_input(prompt="Choose an option: "):
-    return input("\n" + Style.BRIGHT + prompt + Style.RESET_ALL).strip()
+    return input(Style.BRIGHT + Fore.MAGENTA + prompt + Style.RESET_ALL).strip()
 
+
+# --------------------------------------------------------------------
 # Reusable Positive Number Input Handler
 def get_positive_int(prompt="Enter an integer: "):
     while True:
@@ -55,6 +68,8 @@ def get_positive_int(prompt="Enter an integer: "):
         except ValueError:
             return False
 
+
+# --------------------------------------------------------------------
 # Ask to add subject
 def ask_to_add_subject(subject):
     res = y_or_n_input(
@@ -63,6 +78,8 @@ def ask_to_add_subject(subject):
     )
     return res
 
+
+# --------------------------------------------------------------------
 # Y or N input
 def y_or_n_input(input_msg, yes_action=None, no_action=None):
     while True:

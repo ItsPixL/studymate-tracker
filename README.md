@@ -11,14 +11,14 @@ Logs each study session by **subject**, **date**, and **duration**; then shows w
 - Log a session (subject, minutes)  
 - View a list of all sessions
 - View totals of sessions per subject
+- Time your sessions in the app (and automatically log them)
 
 ## 🛣️ Upcoming Features
 - Weekly and monthly stats
-- Built-in timer to automatically log sessions
+- Stopwatch and Pomodoro features
 - Streaks and goals to improve experience
 - Graphs and charts
-
-> **Road‑map** is managed as GitHub Issues – see the **Projects** tab or Issues list.
+- App/Website Frontend
 
 ---
 

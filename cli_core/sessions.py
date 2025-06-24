@@ -8,7 +8,7 @@ init(autoreset=True)
 # --------------------------------------------------------------------
 # Log session
 def log_session_input():
-    print_header("Log a session")
+    print_header("Manually log a session")
     subject = get_cli_input("Subject: ")
 
     while True:
@@ -37,7 +37,6 @@ def timer_input():
                 print(Style.BRIGHT + Fore.RED + "Session not logged!\n")
                 click_to_cont()
                 return
-        
 
     duration = get_positive_int("\n" + Style.BRIGHT + "How long do you want to lock in for?" + Style.RESET_ALL + " (minutes): ") * 60
     original_time = duration
