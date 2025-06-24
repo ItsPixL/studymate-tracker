@@ -1,6 +1,10 @@
 from colorama import init, Fore, Style
 init(autoreset=True)
 
+# Print divider
+def print_divider(color=Fore.WHITE):
+    print(Style.BRIGHT + color + "-" * 50)
+
 # Convert time tuple to string
 def get_time_string(tuple):
     parts = []

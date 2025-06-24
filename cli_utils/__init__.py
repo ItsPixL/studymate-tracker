@@ -1,4 +1,5 @@
 from .cli_utils import (
+    print_divider,
     get_time_string,
     click_to_cont,
     print_header,
@@ -7,6 +8,7 @@ from .cli_utils import (
 )
 
 __all__ = [
+    "print_divider",
     "get_time_string",
     "click_to_cont",
     "print_header",
