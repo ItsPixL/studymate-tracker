@@ -5,6 +5,8 @@ from cli_utils import print_header, get_cli_input, get_positive_int, click_to_co
 from colorama import init, Fore, Style
 init(autoreset=True)
 
+sessions_count = 0
+
 # --------------------------------------------------------------------
 # Log session
 def log_session_input():
@@ -44,11 +46,11 @@ def timed_session_input(type):
     elif type == "stopwatch":
         stopwatch(subject)
     elif type == "pomo":
-        pomodoro()
+        pomodoro(subject)
         
 # --------------------------------------------------------------------
 # Timer
-def timer(subject, seconds):
+def timer(subject, seconds, type="reg"):
     remaining = seconds
     try:
         print("Click Ctrl+C or Cmd+C to pause the timer" + "\n")
@@ -59,35 +61,54 @@ def timer(subject, seconds):
     except KeyboardInterrupt:
         sleep(0.1)
         print("\n" * 2 + Style.BRIGHT + Fore.YELLOW + f"Timer Paused with {get_time_string(convert_seconds(remaining))} left.")
-        timer_paused(remaining, subject, seconds)
+        return timer_paused(remaining, subject, seconds, type)
 
-    log_session(subject, seconds)
+    if type == "pomo_work" or subject != "break":
+        log_session(subject, seconds)
 
-def timer_paused(time_left, subject, original_time):
+    return True
+
+def timer_paused(time_left, subject, original_time, type="reg"):
     elapsed_time = original_time - time_left
-    res = y_or_n_input(
+    return y_or_n_input(
         "Would you like to continue (y) or cancel (n)? ", 
-        lambda: timer(subject, time_left),
-        lambda: timer_cancelled(subject, elapsed_time),
+        lambda: timer(subject, time_left, type),
+        lambda: timer_cancelled(subject, elapsed_time, type),
     )
 
-def timer_cancelled(subject, elapsed_time):
-    def on_yes():
-        if log_session(subject, (elapsed_time)):
-            print(Style.BRIGHT + Fore.GREEN + "Session logged successfully!")
-        else:
-            print(Style.BRIGHT + Fore.RED + "Session log failed!")
-        click_to_cont()
+def timer_cancelled(subject, elapsed_time, type="reg"):
+    if type == "reg" or type == "pomo_work":
+        def on_yes():
+            if log_session(subject, (elapsed_time)):
+                print(Style.BRIGHT + Fore.GREEN + "Session logged successfully!")
+            else:
+                print(Style.BRIGHT + Fore.RED + "Session log failed!")
+            click_to_cont()
 
-    def on_no():
-        print(Style.BRIGHT + Fore.RED + "Session not logged" + "\n")
-        click_to_cont()
+        def on_no():
+            print(Style.BRIGHT + Fore.RED + "Session not logged" + "\n")
+            click_to_cont()
 
-    y_or_n_input(
-        f"\nWould you like to log {Fore.GREEN + get_time_string(convert_seconds(elapsed_time)) + Fore.MAGENTA} (y) or discard this session (n)? ",
-        lambda: on_yes(),
-        lambda: on_no(),
-    )
+        return y_or_n_input(
+            f"\nWould you like to log {Fore.GREEN + get_time_string(convert_seconds(elapsed_time)) + Fore.MAGENTA} (y) or discard this session (n)? ",
+            lambda: on_yes(),
+            lambda: on_no(),
+        )
+
+    elif type == "pomo_break":
+        def continue_pomo():
+            print(Style.BRIGHT + Fore.CYAN + "\nStarting the next session!")
+            pomodoro(subject)
+        
+        def cancel_pomo():
+            print(Style.BRIGHT + Fore.CYAN + "\nStarting the next session!")
+            pomodoro(subject)
+
+        return y_or_n_input(
+            "\nWould you like to continue to the next Pomodoro session (y) or stop (n)?",
+            lambda: continue_pomo(),
+            lambda: cancel_pomo()
+        )
 
 # --------------------------------------------------------------------
 # Stopwatch
@@ -105,10 +126,34 @@ def stopwatch(subject, starting_duration=0):
         stopwatch_paused(subject, elapsed_time)
 
 def stopwatch_paused(subject, elapsed_time):
-    res = y_or_n_input(
+    return y_or_n_input(
         "Would you like to continue (y) or cancel (n)? ", 
         lambda: stopwatch(subject, elapsed_time),
         lambda: timer_cancelled(subject, elapsed_time),
     )
 
-def pomodoro(): print() # TODO
+# --------------------------------------------------------------------
+# Stopwatch
+def pomodoro(subject):
+    global sessions_count
+
+    if sessions_count > 0:
+        print(Style.BRIGHT + Fore.CYAN + "It's time for another 25 minutes. You can do this!")
+    else:
+        print(Style.BRIGHT + Fore.CYAN + "Let's start your first 25-minute session!")
+
+    completed = timer(subject, 1500, type="pomo_work")
+    if not completed:
+        return 
+
+    sessions_count += 1
+
+    if sessions_count % 4 == 0:
+        print(Style.BRIGHT + Fore.GREEN + "Long rest time! You've deserved it!")
+        timer("break", 900, type="pomo_long_break")
+    else:
+        pomodoro_short_break(subject)
+
+def pomodoro_short_break(subject):
+    print(Style.BRIGHT + Fore.GREEN + "Time for a quick refresher! You've deserved it!")
+    timer("break", 300, type="pomo_break")

@@ -98,7 +98,7 @@ def live_session():
     match choice:
         case "1": timed_session_input("timer")
         case "2": timed_session_input("stopwatch") 
-        case "3": print("This is not built yet!") # timed_session_input("pomo")   TODO
+        case "3": timed_session_input("pomo")
         case "4": return
         case _:
             print("Invalid input")
