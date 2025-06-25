@@ -133,7 +133,7 @@ def stopwatch_paused(subject, elapsed_time):
     )
 
 # --------------------------------------------------------------------
-# Stopwatch
+# Pomodoro
 def pomodoro(subject):
     global sessions_count
 
