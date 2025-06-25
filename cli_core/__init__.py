@@ -1,8 +1,6 @@
 from .sessions import (
     log_session_input,
-    timer_input,
-    stopwatch_input,
-    pomodoro_input,
+    timed_session_input
 )
 
 from .stats import (
@@ -18,9 +16,7 @@ from .subjects import (
 
 __all__ = [
     "log_session_input",
-    "timer_input",
-    "stopwatch_input",
-    "pomodoro_input",
+    "timed_session_input",
     "view_all_sessions",
     "view_total_time",
     "input_subject_to_add",

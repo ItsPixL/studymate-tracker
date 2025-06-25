@@ -1,5 +1,5 @@
 from cli_utils import print_cli_menu, get_cli_input, print_divider
-from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timer_input, stopwatch_input, pomodoro_input, view_all_sessions, view_total_time
+from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -96,9 +96,9 @@ def live_session():
     print_divider()
 
     match choice:
-        case "1": timer_input()
-        case "2": print ("This is not built yet!") # stopwatch_input() TODO
-        case "3": print("This is not built yet!") # pomodoro_input()   TODO
+        case "1": timed_session_input("timer")
+        case "2": timed_session_input("stopwatch") 
+        case "3": print("This is not built yet!") # timed_session_input("pomo")   TODO
         case "4": return
         case _:
             print("Invalid input")
