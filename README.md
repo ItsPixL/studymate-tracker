@@ -8,15 +8,14 @@ Logs each study session by **subject**, **date**, and **duration**; then shows w
 
 ## ✨ Current Features
 - Add subjects on the fly  
-- Log a session (subject, minutes)  
+- Log a session (subject, minutes)
 - View a list of all sessions
 - View totals of sessions per subject
-- Time your sessions in the app (and automatically log them)
+- Built in timer, stopwatch, and pomodoro to time your sessions (and automatically log them)
+- Weekly and monthly stats
 
 ## 🛣️ Upcoming Features
-- Weekly and monthly stats
-- Stopwatch and Pomodoro features
-- Streaks and goals to improve experience
+- Streaks and goals to improve experience and gamify learning
 - Graphs and charts
 - App/Website Frontend
 
