@@ -1,4 +1,4 @@
-from base import all_sessions, total_time, get_weekly_stats
+from base import all_sessions, total_time, get_weekly_stats, convert_seconds
 from cli_utils import get_time_string, click_to_cont, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -44,10 +44,10 @@ def view_total_time():
 def weekly_stats():
     data = get_weekly_stats()
     if data:
-        for instance in data:
-            subject, date, duration = instance
-            time = get_time_string(duration)
-            print("📗 " + Style.BRIGHT + Fore.GREEN + subject + ": " + Style.RESET_ALL + date + " " + Fore.YELLOW + time) 
+        for instance in data.items():
+            subject, duration = instance
+            time = get_time_string(convert_seconds(int(duration)))
+            print("📗 " + Style.BRIGHT + Fore.GREEN + subject + ": " + Style.RESET_ALL + time) 
     else: 
         print(Style.BRIGHT + Fore.RED + "No sessions have been recorded! Use the sessions menu to get started.")
     click_to_cont()
