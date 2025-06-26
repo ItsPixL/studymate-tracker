@@ -20,6 +20,10 @@ from .subjects_base import (
     check_if_subject_exists
 )
 
+from .stats_base import (
+    get_weekly_stats
+)
+
 __all__ = [
     "SESSIONS",
     "SUBJECTS",
@@ -35,5 +39,7 @@ __all__ = [
     "all_sessions",
     "total_time",
 
-    "check_if_subject_exists"
+    "check_if_subject_exists",
+
+    "get_weekly_stats",
 ]

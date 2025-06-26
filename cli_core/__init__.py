@@ -6,6 +6,7 @@ from .sessions import (
 from .stats import (
     view_all_sessions,
     view_total_time,
+    weekly_stats,
 )
 
 from .subjects import (
@@ -19,6 +20,7 @@ __all__ = [
     "timed_session_input",
     "view_all_sessions",
     "view_total_time",
+    "weekly_stats",
     "input_subject_to_add",
     "input_subject_to_remove",
     "print_subjects",

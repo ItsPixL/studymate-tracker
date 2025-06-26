@@ -1,5 +1,5 @@
 from cli_utils import print_cli_menu, get_cli_input, print_divider
-from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time
+from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time, weekly_stats
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -119,7 +119,7 @@ def stats():
             match choice:
                 case "1": view_all_sessions()
                 case "2": view_total_time()
-                case "3": print("This is not built yet!") # TODO
+                case "3": weekly_stats()
                 case "4": print("This is not built yet!") # TODO
                 case "5": break
                 case _:
