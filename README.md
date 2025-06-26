@@ -2,7 +2,10 @@
 # StudyMate 📚
 
 *A minimal Python study‑time tracker you run from the terminal.*  
-Logs each study session by **subject**, **date**, and **duration**; then shows weekly and all‑time summaries.
+Studymate is *your* solution to focussing on your learning.
+
+Log each study session by **subject**, **date**, and **duration** then shows weekly and all‑time summaries.
+Use the built-in **timer**, **pomodoro**, or **stopwatch** to focus on your learning.
 
 ---
 
