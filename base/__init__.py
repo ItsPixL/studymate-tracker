@@ -21,7 +21,8 @@ from .subjects_base import (
 )
 
 from .stats_base import (
-    get_weekly_stats
+    get_weekly_stats,
+    get_monthly_stats
 )
 
 __all__ = [
@@ -42,4 +43,5 @@ __all__ = [
     "check_if_subject_exists",
 
     "get_weekly_stats",
+    "get_monthly_stats",
 ]

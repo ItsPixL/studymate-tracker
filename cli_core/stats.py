@@ -1,4 +1,4 @@
-from base import all_sessions, total_time, get_weekly_stats, convert_seconds
+from base import all_sessions, total_time, get_weekly_stats, get_monthly_stats, convert_seconds
 from cli_utils import get_time_string, click_to_cont, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -40,9 +40,18 @@ def view_total_time():
     click_to_cont()
 
 # --------------------------------------------------------------------
-# Weekly stats
+# Weekly & Monthly stats
 def weekly_stats():
-    data = get_weekly_stats()
+    print_header("This week's stats")
+    get_stats("weekly")
+
+def monthly_stats():
+    print_header("This month's stats")
+    get_stats("monthly")
+
+def get_stats(timeframe):
+    if timeframe == "weekly": data = get_weekly_stats()
+    else: data = get_monthly_stats()
     if data:
         for instance in data.items():
             subject, duration = instance
