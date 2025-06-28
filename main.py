@@ -1,5 +1,5 @@
 from cli_utils import print_cli_menu, get_cli_input, print_divider
-from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time, weekly_stats, monthly_stats
+from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time, weekly_stats, monthly_stats, view_streaks
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -110,7 +110,7 @@ def live_session():
 def stats():
     try:
         while True:
-            options = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Back"]
+            options = ["View all sessions", "View total time", "Weekly stats", "Monthly stats", "Streaks", "Back"]
             print_cli_menu("Stats", options)
 
             choice = get_cli_input()
@@ -121,7 +121,8 @@ def stats():
                 case "2": view_total_time()
                 case "3": weekly_stats()
                 case "4": monthly_stats()
-                case "5": break
+                case "5": view_streaks()
+                case "6": break
                 case _:
                     print("Invalid input")
 

@@ -8,6 +8,7 @@ from .stats import (
     view_total_time,
     weekly_stats,
     monthly_stats,
+    view_streaks,
 )
 
 from .subjects import (
@@ -24,6 +25,7 @@ __all__ = [
     "view_total_time",
     "weekly_stats",
     "monthly_stats",
+    "view_streaks",
     
     "input_subject_to_add",
     "input_subject_to_remove",

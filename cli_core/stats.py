@@ -1,4 +1,4 @@
-from base import all_sessions, total_time, get_weekly_stats, get_monthly_stats, convert_seconds
+from base import all_sessions, total_time, get_weekly_stats, get_monthly_stats, convert_seconds, calculate_streaks
 from cli_utils import get_time_string, click_to_cont, print_header
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -59,4 +59,12 @@ def get_stats(timeframe):
             print("📗 " + Style.BRIGHT + Fore.GREEN + subject + ": " + Style.RESET_ALL + time) 
     else: 
         print(Style.BRIGHT + Fore.RED + "No sessions have been recorded! Use the sessions menu to get started.")
+    click_to_cont()
+
+# --------------------------------------------------------------------
+# Streak
+def view_streaks():
+    current, longest = calculate_streaks()
+    print(f"\n🔥 Current Streak: {current} day{'s' if current != 1 else ''}")
+    print(f"🔥 Longest Streak: {longest} day{'s' if longest != 1 else ''} \n")
     click_to_cont()

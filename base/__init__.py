@@ -22,7 +22,8 @@ from .subjects_base import (
 
 from .stats_base import (
     get_weekly_stats,
-    get_monthly_stats
+    get_monthly_stats,
+    calculate_streaks,
 )
 
 __all__ = [
@@ -44,4 +45,5 @@ __all__ = [
 
     "get_weekly_stats",
     "get_monthly_stats",
+    "calculate_streaks",
 ]
