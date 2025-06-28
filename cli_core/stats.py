@@ -63,8 +63,8 @@ def get_stats(timeframe):
 
 # --------------------------------------------------------------------
 # Streak
-def view_streaks():
+def view_streaks(no_click_to_cont=""):
     current, longest = calculate_streaks()
     print(f"\n🔥 Current Streak: {current} day{'s' if current != 1 else ''}")
     print(f"🔥 Longest Streak: {longest} day{'s' if longest != 1 else ''} \n")
-    click_to_cont()
+    if no_click_to_cont != "no_click_to_cont": click_to_cont()

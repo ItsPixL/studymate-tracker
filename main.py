@@ -1,5 +1,6 @@
 from cli_utils import print_cli_menu, get_cli_input, print_divider
 from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time, weekly_stats, monthly_stats, view_streaks
+from base import read_file, SESSIONS
 
 from colorama import init, Fore, Style
 init(autoreset=True)
@@ -17,6 +18,7 @@ def main():
     try:
         while True:
             print(Style.BRIGHT + "📚 Welcome to " + Fore.CYAN + "StudyMate")
+            welcome_back()
 
             options = ["Edit subjects", "Log session", "Stats", "Exit"]
             print_cli_menu("Main Menu", options)
@@ -36,6 +38,12 @@ def main():
 
     except KeyboardInterrupt:
         stop()
+
+# Check if user has been here before, if yes show streaks
+def welcome_back():
+    data = read_file(SESSIONS)
+    if data != [] and data:
+        view_streaks("no_click_to_cont")
 
 # ------------------------------------------------------------
 # ---------------------- Subjects Menu -----------------------
