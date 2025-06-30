@@ -1,10 +1,13 @@
 import json
 from datetime import date
+from pathlib import Path
 
 # --------------------------------------------------------------------
 # Variables
-SUBJECTS = "data/subjects.json"
-SESSIONS = "data/sessions.json"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+SUBJECTS = PROJECT_ROOT / 'data' / 'subjects.json'
+SESSIONS = PROJECT_ROOT / 'data' / 'sessions.json'
 
 
 # --------------------------------------------------------------------

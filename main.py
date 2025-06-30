@@ -1,3 +1,7 @@
+from sys import path
+from pathlib import Path
+path.append(str(Path(__file__).resolve().parent))
+
 from cli_utils import print_cli_menu, get_cli_input, print_divider
 from cli_core import input_subject_to_add, input_subject_to_remove, print_subjects, log_session_input, timed_session_input, view_all_sessions, view_total_time, weekly_stats, monthly_stats, view_streaks
 from base import read_file, SESSIONS
