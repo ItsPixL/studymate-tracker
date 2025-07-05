@@ -28,18 +28,53 @@ function Greeting() {
 }
 
 function Subjects() {
-  const subjects = ["Math", "English"]
+  const subjects = [
+    "Math",
+    "English",
+    "Biology",
+    "Chemistry",
+    "Physics",
+    "History",
+    "Geography",
+    "Art",
+    "Music",
+    "Physical Education",
+    "Computer Science",
+    "Economics",
+    "Philosophy",
+    "Psychology",
+    "Drama",
+    "Environmental Science",
+    "Political Science"
+  ];
 
-  // FOR THE COLOURS
-  // return colors[index % colors.length];
+  const colors = [
+    "bg-red-600/80",
+    "bg-orange-600/80",
+    "bg-yellow-600/80",
+    "bg-lime-600/80",
+    "bg-emerald-600/80",
+    "bg-teal-600/80",
+    "bg-cyan-600/80",
+    "bg-blue-600/80",
+    "bg-violet-600/80",
+    "bg-fuchsia-600/80",
+    "bg-pink-600/80"
+  ]
 
   return (
     <div className='bg-slate-900/80 backdrop-blur-lg rounded-2xl border-white border-2 my-6 p-5'>
       <span className='text-2xl font-bold'>Subjects</span>
       <div className='flex flex-col gap-3 mt-2'>
-        {subjects.map((subject, index) => (
-          <div key={index} className='bg-red-400/50 p-2 text-xl'>{subject}</div>
-        ))}
+        {subjects.map((subject, index) => { return (
+            <div
+              key={index}
+              className={`backdrop-blur-lg p-2 text-xl ${colors[index % colors.length]}`}
+            >
+              {subject}
+            </div>
+          );
+        })}
       </div>
     </div>
   )
