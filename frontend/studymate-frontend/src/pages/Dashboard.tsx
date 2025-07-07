@@ -34,8 +34,8 @@ function Stats() {
   return (
     <div className='bg-slate-900/80 backdrop-blur-lg rounded-2xl border-white border-2 my-6 p-5'>
       <span className='text-2xl font-bold'>Stats</span>
-      <div className='mt-2 backdrop-blur-lg bg-slate-700 p-2 text-2xl rounded-lg'><strong>Your longest streak:</strong> 🔥{longest}</div>
-      <div className='mt-2 backdrop-blur-lg bg-slate-700 p-2 text-2xl rounded-lg'><strong>Your current streak:</strong> 🔥{current}</div>
+      <div className='mt-2 backdrop-blur-lg bg-slate-700 py-2.5 px-5 text-2xl rounded-lg'><strong>Your longest streak:</strong> 🔥{longest}</div>
+      <div className='mt-2 backdrop-blur-lg bg-slate-700 py-2.5 px-5 text-2xl rounded-lg'><strong>Your current streak:</strong> 🔥{current}</div>
     </div>
   )
 }
@@ -96,7 +96,7 @@ function Subjects() {
           return (
             <div key={index} className='flex justify-between items-center w-full'>
               <div
-                className={`flex justify-between items-center w-full backdrop-blur-lg p-2 text-2xl rounded-lg ${colors[index % colors.length]}`}
+                className={`flex justify-between items-center w-full backdrop-blur-lg py-2.5 px-5 text-2xl rounded-lg ${colors[index % colors.length]}`}
               >
                 <span>{subject}</span>
                 <span className="material-symbols-outlined cursor-pointer text-3xl">delete</span>
