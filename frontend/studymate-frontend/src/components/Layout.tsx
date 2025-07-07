@@ -68,11 +68,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const pfp = false;
 
   const navContainerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: -20 },
     show: {
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.2,
+        when: "beforeChildren",
+        staggerChildren: 0.1,
       },
     },
   };
