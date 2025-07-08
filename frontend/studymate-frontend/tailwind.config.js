@@ -9,6 +9,10 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
+      },
+      colors: {
+        deepBlue: '#03005E',
+        royalPurple: '#5C005A'
       }
     },
   },

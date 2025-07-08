@@ -85,7 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-fuchsia-900 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-deepBlue to-royalPurple flex flex-col">
       <motion.div
         className="backdrop-blur-lg bg-slate-900/80 border-b-2 border-white py-3 px-8"
         variants={navContainerVariants}
@@ -132,9 +132,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           )}
         </motion.nav>
       </motion.div>
-      <div className="">
-        <main className="flex-1 p-6 text-white">{children}</main>
-      </div>
+      <main className="p-6 text-white">{children}</main>
     </div>
   );
 }

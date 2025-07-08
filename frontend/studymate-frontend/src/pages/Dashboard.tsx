@@ -52,7 +52,7 @@ function Greeting() {
 
   return (
     <motion.div
-      className="bg-gradient-to-r from-sky-500 to-purple-700 px-12 py-10 grid grid-cols-2 rounded-3xl drop-shadow-2xl lg:max-w-screen-2xl mx-auto"
+      className="bg-gradient-to-r from-sky-500 to-purple-700 px-12 py-10 grid grid-cols-2 rounded-3xl drop-shadow-2xl lg:max-w-screen-2xl mx-auto h-max w-full"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -82,7 +82,7 @@ function Stats() {
 
   return (
     <motion.div
-      className="bg-slate-900/80 backdrop-blur-lg rounded-2xl border-white border-2 my-6 p-5"
+      className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-5"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -148,19 +148,29 @@ function Subjects() {
   ];
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-lg rounded-2xl border-white border-2 my-6 p-5">
-      <div className="flex justify-between items-center">
+    <motion.div
+      className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-5"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      transition={{ when: "beforeChildren", delay: 1.5, staggerChildren: 0.1 }}
+    >
+      <motion.div
+        className="flex justify-between items-center"
+        variants={itemVariants}
+      >
         <span className="text-2xl font-bold">Subjects</span>
         <span className="material-symbols-outlined cursor-pointer text-3xl">
           add
         </span>
-      </div>
+      </motion.div>
       <div className="flex flex-col gap-3 mt-2">
         {subjects.map((subject, index) => {
           return (
-            <div
+            <motion.div
               key={index}
               className="flex justify-between items-center w-full"
+              variants={itemVariants}
             >
               <div
                 className={`flex justify-between items-center w-full backdrop-blur-lg py-2.5 px-5 text-2xl rounded-lg ${
@@ -172,25 +182,43 @@ function Subjects() {
                   delete
                 </span>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </div>
+    </motion.div>
+  );
+}
+
+function Log() {
+  return (
+    <motion.div
+      className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-5"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      transition={{ when: "beforeChildren", delay: 1, staggerChildren: 0.1 }}
+    >
+      <motion.span className="text-2xl font-bold" variants={itemVariants}>
+        Log a Subject
+      </motion.span>
+    </motion.div>
   );
 }
 
 export default function Dashboard() {
   return (
     <Layout>
-      <Greeting />
-      <div className="lg:max-w-screen-2xl mx-auto grid grid-cols-2 gap-10">
-        <div className="flex flex-col">
-          <Stats />
-          <Subjects />
-        </div>
-        <div className="">
-          <Subjects />
+      <div className="">
+        <Greeting />
+        <div className="lg:max-w-screen-2xl mx-auto grid grid-cols-2 gap-7">
+          <div>
+            <Stats />
+            <Subjects />
+          </div>
+          <div>
+            <Log />
+          </div>
         </div>
       </div>
     </Layout>
