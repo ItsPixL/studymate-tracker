@@ -12,7 +12,9 @@ export default {
       },
       colors: {
         deepBlue: '#03005E',
-        royalPurple: '#5C005A'
+        lightBlue: '#006FBE',
+        royalPurple: '#5C005A',
+        lightPurple: '#A700B7',
       }
     },
   },

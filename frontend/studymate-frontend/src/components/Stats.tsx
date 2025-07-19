@@ -31,13 +31,13 @@ export default function Stats() {
         Stats
       </motion.span>
       <motion.div
-        className="mt-2 backdrop-blur-lg bg-slate-700 py-2.5 px-5 text-2xl rounded-lg"
+        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-700 to-purple-700 py-2.5 px-5 text-2xl rounded-lg"
         variants={itemVariants}
       >
         <strong>Your longest streak:</strong> 🔥{longest}
       </motion.div>
       <motion.div
-        className="mt-2 backdrop-blur-lg bg-slate-700 py-2.5 px-5 text-2xl rounded-lg"
+        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-700 to-purple-700 py-2.5 px-5 text-2xl rounded-lg"
         variants={itemVariants}
       >
         <strong>Your current streak:</strong> 🔥{current}

@@ -50,7 +50,7 @@ export default function Greeting() {
 
   return (
     <motion.div
-      className="bg-gradient-to-r from-sky-500 to-purple-700 px-12 py-10 grid grid-cols-2 rounded-3xl drop-shadow-2xl lg:max-w-screen-2xl mx-auto h-max w-full"
+      className="bg-gradient-to-r from-lightBlue to-lightPurple px-12 py-10 grid grid-cols-2 rounded-3xl drop-shadow-2xl lg:max-w-screen-2xl mx-auto h-max w-full"
       variants={containerVariants}
       initial="hidden"
       animate="show"
