@@ -14,8 +14,8 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-// Stats
-export default function Stats() {
+// Streaks
+export default function Streaks() {
   const longest = 6;
   const current = 3;
 
@@ -28,17 +28,19 @@ export default function Stats() {
       transition={{ when: "beforeChildren", delay: 1, staggerChildren: 0.1 }}
     >
       <motion.span className="text-2xl font-bold" variants={itemVariants}>
-        Stats
+        Streaks
       </motion.span>
       <motion.div
-        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-700 to-purple-700 py-2.5 px-5 text-2xl rounded-lg"
+        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-900 to-purple-900 py-2.5 px-5 text-2xl rounded-lg"
         variants={itemVariants}
+        whileHover={{ scale: 1.01 }}
       >
         <strong>Your longest streak:</strong> 🔥{longest}
       </motion.div>
       <motion.div
-        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-700 to-purple-700 py-2.5 px-5 text-2xl rounded-lg"
+        className="mt-2 backdrop-blur-lg bg-gradient-to-r from-blue-900 to-purple-900 py-2.5 px-5 text-2xl rounded-lg"
         variants={itemVariants}
+        whileHover={{ scale: 1.01 }}
       >
         <strong>Your current streak:</strong> 🔥{current}
       </motion.div>

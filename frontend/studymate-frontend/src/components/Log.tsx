@@ -94,14 +94,17 @@ function SubjectSelection() {
   ];
 
   return (
-    <div className="bg-gray-800 px-5 py-4 rounded-2xl">
+    <motion.div
+      className="bg-gray-800 px-5 py-4 rounded-2xl"
+      variants={itemVariants}
+    >
       <div className="text-xl font-bold mb-2">Subject</div>
       <Dropdown
         label="Select a subject"
         options={options}
         onSelect={handleChange}
       ></Dropdown>
-    </div>
+    </motion.div>
   );
 }
 
@@ -115,7 +118,10 @@ function DurationInput() {
   };
 
   return (
-    <div className="bg-gray-800 px-5 py-4 rounded-2xl">
+    <motion.div
+      className="bg-gray-800 px-5 py-4 rounded-2xl"
+      variants={itemVariants}
+    >
       <div className="text-xl font-bold mb-2">Duration</div>
       <div className="relative">
         <input
@@ -129,7 +135,7 @@ function DurationInput() {
           minutes
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -152,13 +158,47 @@ export default function Log() {
           <SubjectSelection />
           <DurationInput />
         </div>
-        <div className="flex flex-cols gap-2">
-          <button className="bg-slate-800 w-max px-2 py-3 rounded-md flex items-center justify-center">
+
+        <motion.div
+          className="flex flex-cols gap-2 mb-4"
+          variants={itemVariants}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, backgroundColor: "#475569" }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-slate-800 w-max px-2 py-3 rounded-md flex items-center justify-center"
+          >
             <span className="material-symbols-outlined">delete</span>
-          </button>
-          <button className="bg-gradient-to-r from-blue-700 to-purple-700 w-full rounded-md">
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05, filter: "brightness(2)" }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-blue-900 to-purple-900 w-full rounded-md"
+          >
             Log Session
-          </button>
+          </motion.button>
+        </motion.div>
+
+        <motion.div
+          className="text-center text-white my-4 text-lg"
+          variants={itemVariants}
+        >
+          Or...
+        </motion.div>
+
+        <div className="flex flex-col gap-2">
+          {["Timer", "Stopwatch", "Pomodoro"].map((type) => (
+            <motion.button
+              key={type}
+              whileHover={{ scale: 1.05, filter: "brightness(2)" }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-4 py-3 rounded-md text-white text-center"
+              variants={itemVariants}
+            >
+              Start a <strong>{type}</strong>
+            </motion.button>
+          ))}
         </div>
       </div>
     </motion.div>

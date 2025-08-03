@@ -2,7 +2,7 @@
 import Layout from "../components/Layout";
 import Subjects from "../components/Subjects";
 import Greeting from "../components/Greeting";
-import Stats from "../components/Stats";
+import Streaks from "../components/Streaks";
 import Log from "../components/Log";
 
 export default function Dashboard() {
@@ -12,7 +12,7 @@ export default function Dashboard() {
         <Greeting />
         <div className="lg:max-w-screen-2xl mx-auto grid grid-cols-2 gap-7">
           <div>
-            <Stats />
+            <Streaks />
             <Subjects />
           </div>
           <div>

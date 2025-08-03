@@ -14,7 +14,7 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-// Subject
+// Subject component
 function Subject({ subject, index }: { subject: string; index: number }) {
   const colors = [
     "bg-red-600/80",
@@ -33,71 +33,74 @@ function Subject({ subject, index }: { subject: string; index: number }) {
   return (
     <motion.div
       key={index}
-      className="flex justify-between items-center w-full"
+      className={`w-full rounded-lg`}
       variants={itemVariants}
+      whileHover={{
+        scale: 1.01,
+        boxShadow: "0 8px 15px rgba(0,0,0,0.3)",
+        transition: { duration: 0.25 },
+      }}
     >
       <div
-        className={`flex justify-between items-center w-full backdrop-blur-lg py-2.5 px-5 text-2xl rounded-lg ${
+        className={`flex justify-between items-center w-full backdrop-blur-lg py-3 px-6 text-2xl rounded-lg shadow-md select-none ${
           colors[index % colors.length]
         }`}
       >
         <span>{subject}</span>
-        <span className="material-symbols-outlined cursor-pointer text-3xl">
+        <motion.span
+          className="material-symbols-outlined text-3xl cursor-pointer"
+          initial={{ scale: 1 }}
+          whileHover={{
+            scale: 1.3,
+            transition: { type: "spring", stiffness: 300, damping: 20 },
+          }}
+          whileTap={{ scale: 0.9 }}
+          aria-label={`Delete ${subject}`}
+          role="button"
+        >
           delete
-        </span>
+        </motion.span>
       </div>
     </motion.div>
   );
 }
 
-// Subjects
+// Subjects component
 export default function Subjects() {
-  // Temporary
-  // Long list
-  // const subjects = [
-  //   "Math",
-  //   "English",
-  //   "Biology",
-  //   "Chemistry",
-  //   "Physics",
-  //   "History",
-  //   "Geography",
-  //   "Art",
-  //   "Music",
-  //   "Physical Education",
-  //   "Computer Science",
-  //   "Economics",
-  //   "Philosophy",
-  //   "Psychology",
-  //   "Drama",
-  //   "Environmental Science",
-  //   "Political Science"
-  // ];
-
-  // Short list
   const subjects = ["Math", "English", "Science", "Visual Arts"];
 
   return (
     <motion.div
-      className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-5"
+      className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-6"
       variants={containerVariants}
       initial="hidden"
       animate="show"
       transition={{ when: "beforeChildren", delay: 1.5, staggerChildren: 0.1 }}
     >
       <motion.div
-        className="flex justify-between items-center"
+        className="flex justify-between items-center mb-4"
         variants={itemVariants}
       >
         <span className="text-2xl font-bold">Subjects</span>
-        <span className="material-symbols-outlined cursor-pointer text-3xl">
+        <motion.span
+          className="material-symbols-outlined cursor-pointer text-3xl select-none"
+          aria-label="Add subject"
+          role="button"
+          initial={{ scale: 1 }}
+          whileHover={{
+            scale: 1.3,
+            transition: { type: "spring", stiffness: 300, damping: 20 },
+          }}
+          whileTap={{ scale: 0.9 }}
+        >
           add
-        </span>
+        </motion.span>
       </motion.div>
-      <div className="flex flex-col gap-3 mt-2">
-        {subjects.map((subject, index) => {
-          return <Subject subject={subject} index={index} />;
-        })}
+
+      <div className="flex flex-col gap-4">
+        {subjects.map((subject, index) => (
+          <Subject key={index} subject={subject} index={index} />
+        ))}
       </div>
     </motion.div>
   );
