@@ -63,6 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   //     </MotionLink>
   //   );
   // }
+
   const logged_in = true;
   const username = "Neer Sheth";
   const pfp = false;

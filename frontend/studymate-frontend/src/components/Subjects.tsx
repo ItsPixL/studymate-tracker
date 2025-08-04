@@ -66,7 +66,7 @@ function Subject({ subject, index }: { subject: string; index: number }) {
 }
 
 // Subjects component
-export default function Subjects() {
+export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
   const subjects = ["Math", "English", "Science", "Visual Arts"];
 
   return (
