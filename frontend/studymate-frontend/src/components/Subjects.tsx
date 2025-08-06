@@ -92,6 +92,7 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
             transition: { type: "spring", stiffness: 300, damping: 20 },
           }}
           whileTap={{ scale: 0.9 }}
+          onClick={addSubBtn}
         >
           add
         </motion.span>
