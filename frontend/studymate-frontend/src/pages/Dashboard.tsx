@@ -9,7 +9,7 @@ import AddSubject from "../components/AddSubject";
 import { useState } from "react";
 
 export default function Dashboard() {
-  const [addSubjectScreen, changeAddSubjectScreen] = useState(true);
+  const [addSubjectScreen, setAddSubjectScreen] = useState(false);
 
   return (
     <Layout>
@@ -19,9 +19,7 @@ export default function Dashboard() {
         <div className="lg:max-w-screen-2xl mx-auto grid grid-cols-2 gap-7">
           <div>
             <Streaks />
-            <Subjects
-              addSubBtn={() => changeAddSubjectScreen((prev) => !prev)}
-            />
+            <Subjects addSubBtn={() => setAddSubjectScreen((prev) => !prev)} />
           </div>
           <div>
             <Log />

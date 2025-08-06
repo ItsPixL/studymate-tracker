@@ -1,7 +1,5 @@
 import { motion } from "motion/react";
 
-const name = "Neer";
-
 // Motion Varients
 const containerVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -57,7 +55,7 @@ export default function Greeting() {
       transition={{ when: "beforeChildren", delay: 0.5, staggerChildren: 0.1 }}
     >
       <motion.div variants={itemVariants}>
-        <h1 className="text-3xl font-bold">Welcome back, {name} 👋</h1>
+        <h1 className="text-3xl font-bold">Welcome back 👋</h1>
         <p className="text-xl">
           {day} {date} {month}, {year}
         </p>

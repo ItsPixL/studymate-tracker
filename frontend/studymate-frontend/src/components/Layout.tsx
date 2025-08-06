@@ -44,30 +44,6 @@ function Clock() {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  //  IF NEEDED, OTHERWISE REMOVE
-  // const linkClasses =
-  //   'text-white hover:bg-blue-700 font-light text-xl bg-slate-950 px-4 py-2 rounded-xl transition-colors';
-
-  // const MotionLink = motion(Link);
-
-  // function LinkButton({ to, children }: { to: string; children: React.ReactNode }) {
-  //   return (
-  //     <MotionLink
-  //       to={to}
-  //       className={linkClasses}
-  //       initial={{ scale: 1 }}
-  //       whileHover={{ scale: 1.1 }}
-  //       whileTap={{ scale: 0.95 }}
-  //     >
-  //       {children}
-  //     </MotionLink>
-  //   );
-  // }
-
-  const logged_in = true;
-  const username = "Neer Sheth";
-  const pfp = false;
-
   const navContainerVariants = {
     hidden: { opacity: 0, y: -20 },
     show: {
@@ -111,26 +87,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           >
             {<Clock />}
           </motion.div>
-          {logged_in ? (
-            <motion.div
-              className="flex justify-end text-white gap-2"
-              variants={navItemVariants}
-            >
-              {pfp ? (
-                "pfp"
-              ) : (
-                <span className="material-symbols-outlined">
-                  account_circle
-                </span>
-              )}
-              <span>{username}</span>
-              <span className="material-symbols-outlined">arrow_drop_down</span>
-            </motion.div>
-          ) : (
-            <div className="flex justify-end text-white gap-2">
-              not logged in
-            </div>
-          )}
         </motion.nav>
       </motion.div>
       <main className="p-6 text-white">{children}</main>
