@@ -1,7 +1,7 @@
 ![StudyMate Logo](logo.png)
 # StudyMate 📚
 
-*A minimal Python study‑time tracker you run from the terminal.*  
+*A minimal Python study‑time tracker you run from the terminal^1.*  
 Studymate is *your* solution to focussing on your learning.
 
 Log each study session by **subject**, **date**, and **duration** then shows weekly and all‑time summaries.
@@ -26,10 +26,12 @@ Use the built-in **timer**, **pomodoro**, or **stopwatch** to focus on your lear
 
 ## 🖥️ Quick Start
 
+NOTE: This guide is based on the previous CLI-only version. It will be updated once final development is complete.
+
 ```bash
 # clone & enter
 git clone https://github.com/ItsPixL/studymate-tracker.git
-cd studymate‑tracker
+cd studymate‑tracker/backend
 
 # create / activate virtual‑env
 python3 -m venv .venv
@@ -58,3 +60,8 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## Extras
+^1 For now! A React-based UI is coming very soon!
