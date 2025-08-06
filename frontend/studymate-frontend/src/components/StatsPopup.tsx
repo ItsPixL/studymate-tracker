@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import { fetchWeekly, fetchMonthly } from "../api";
+import { useEffect, useState } from "react";
 
 const containerVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -21,6 +23,16 @@ export default function StatsPopup({
   type: number;
   controller: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const [stats, setStats] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (type === 1) {
+      fetchWeekly().then(setStats);
+    } else if (type === 2) {
+      fetchMonthly().then(setStats);
+    }
+  }, [type]);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
       <motion.div
@@ -33,14 +45,41 @@ export default function StatsPopup({
           className="text-2xl font-bold mb-4 text-center"
           variants={itemVariants}
         >
-          Stats
+          {type === 1 ? "Weekly" : "Monthly"} Stats
         </motion.div>
 
         <motion.p
           className="text-center text-white text-sm"
           variants={itemVariants}
         >
-          Your stats: {type}
+          <div>
+            {Object.keys(stats).length > 0
+              ? Object.entries(stats).map(([key, value], index) => {
+                  const totalSeconds = parseInt(value, 10);
+                  const hours = Math.floor(totalSeconds / 3600);
+                  const minutes = Math.floor((totalSeconds % 3600) / 60);
+                  const seconds = totalSeconds % 60;
+
+                  const timeParts = [];
+                  if (hours > 0)
+                    timeParts.push(`${hours} hour${hours !== 1 ? "s" : ""}`);
+                  if (minutes > 0)
+                    timeParts.push(
+                      `${minutes} minute${minutes !== 1 ? "s" : ""}`
+                    );
+                  if (seconds > 0)
+                    timeParts.push(
+                      `${seconds} second${seconds !== 1 ? "s" : ""}`
+                    );
+
+                  return (
+                    <div key={index}>
+                      {key}: {timeParts.join(", ")}
+                    </div>
+                  );
+                })
+              : "None to show!"}
+          </div>
         </motion.p>
         <motion.button
           key={type}

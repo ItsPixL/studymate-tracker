@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import { fetchStreaks } from "../api";
+import { useState, useEffect } from "react";
 
 // Motion Varients
 const containerVariants = {
@@ -16,8 +18,15 @@ const itemVariants = {
 
 // Streaks
 export default function Streaks() {
-  const longest = 6;
-  const current = 3;
+  const [streaks, setStreaks] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetchStreaks()
+      .then(setStreaks)
+      .catch((err) => console.log(err.message));
+  }, []);
+
+  const [current, longest] = streaks;
 
   return (
     <motion.div

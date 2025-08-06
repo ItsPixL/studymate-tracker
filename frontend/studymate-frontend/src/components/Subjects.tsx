@@ -69,7 +69,7 @@ function Subject({ subject, index }: { subject: string; index: number }) {
 
 // Subjects component
 export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
-  const [subjects, setSubjects] = useState([]);
+  const [subjects, setSubjects] = useState<string[]>([]);
 
   useEffect(() => {
     fetchSubjects()
