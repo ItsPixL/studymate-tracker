@@ -1,4 +1,6 @@
 import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { fetchSubjects } from "../api";
 
 // Motion Varients
 const containerVariants = {
@@ -67,7 +69,13 @@ function Subject({ subject, index }: { subject: string; index: number }) {
 
 // Subjects component
 export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
-  const subjects = ["Math", "English", "Science", "Visual Arts"];
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    fetchSubjects()
+      .then(setSubjects)
+      .catch((err) => console.log(err.message));
+  }, []);
 
   return (
     <motion.div
