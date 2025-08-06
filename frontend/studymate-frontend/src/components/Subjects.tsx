@@ -90,20 +90,40 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
         variants={itemVariants}
       >
         <span className="text-2xl font-bold">Subjects</span>
-        <motion.span
-          className="material-symbols-outlined cursor-pointer text-3xl select-none"
-          aria-label="Add subject"
-          role="button"
-          initial={{ scale: 1 }}
-          whileHover={{
-            scale: 1.3,
-            transition: { type: "spring", stiffness: 300, damping: 20 },
-          }}
-          whileTap={{ scale: 0.9 }}
-          onClick={addSubBtn}
-        >
-          add
-        </motion.span>
+        <div>
+          <motion.span
+            className="material-symbols-outlined cursor-pointer text-3xl select-none"
+            aria-label="Add subject"
+            role="button"
+            initial={{ scale: 1 }}
+            whileHover={{
+              scale: 1.3,
+              transition: { type: "spring", stiffness: 300, damping: 20 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            onClick={addSubBtn}
+          >
+            add
+          </motion.span>
+          <motion.span
+            className="material-symbols-outlined cursor-pointer text-3xl select-none"
+            aria-label="Refresh subjects"
+            role="button"
+            initial={{ scale: 1 }}
+            whileHover={{
+              scale: 1.3,
+              transition: { type: "spring", stiffness: 300, damping: 20 },
+            }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              fetchSubjects()
+                .then(setSubjects)
+                .catch((err) => console.log(err.message));
+            }}
+          >
+            refresh
+          </motion.span>
+        </div>
       </motion.div>
 
       <div className="flex flex-col gap-4">

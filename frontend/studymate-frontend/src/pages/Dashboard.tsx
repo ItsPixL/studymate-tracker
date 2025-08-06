@@ -15,7 +15,11 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      {addSubjectScreen ? <AddSubject /> : ""}
+      {addSubjectScreen ? (
+        <AddSubject controller={() => setAddSubjectScreen((prev) => !prev)} />
+      ) : (
+        ""
+      )}
       {statsPopup == 0 ? (
         ""
       ) : (

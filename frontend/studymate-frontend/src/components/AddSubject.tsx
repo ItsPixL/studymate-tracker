@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { useState } from "react";
+import { addSubject } from "../api";
 
 const containerVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -15,17 +16,17 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function AddSubject() {
+export default function AddSubject({ controller }: { controller: () => void }) {
   const [subjectName, setSubjectName] = useState("");
 
   const handleSubmit = () => {
     if (subjectName.trim() === "") {
-      console.log("Subject name is required");
+      alert("Subject name is required");
       return;
     }
-
-    // CONNECT TO BACKEND HERE
-    console.log("Submitting:", subjectName);
+    addSubject(subjectName)
+      .then((response) => console.log(response.message))
+      .catch((error) => console.error(error.message));
     setSubjectName("");
   };
 
@@ -61,6 +62,15 @@ export default function AddSubject() {
           variants={itemVariants}
         >
           Submit
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05, filter: "brightness(2)" }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-2 py-1 mt-3 rounded-md text-white text-center"
+          variants={itemVariants}
+          onClick={controller}
+        >
+          Close
         </motion.button>
       </motion.div>
     </div>
