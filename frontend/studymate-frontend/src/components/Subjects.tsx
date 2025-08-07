@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { fetchSubjects } from "../api";
+import { fetchSubjects, removeSubject } from "../api";
 
 // Motion Varients
 const containerVariants = {
@@ -17,7 +17,15 @@ const itemVariants = {
 };
 
 // Subject component
-function Subject({ subject, index }: { subject: string; index: number }) {
+function Subject({
+  subject,
+  index,
+  updateList,
+}: {
+  subject: string;
+  index: number;
+  updateList: () => void;
+}) {
   const colors = [
     "bg-red-600/80",
     "bg-orange-600/80",
@@ -31,6 +39,13 @@ function Subject({ subject, index }: { subject: string; index: number }) {
     "bg-fuchsia-600/80",
     "bg-pink-600/80",
   ];
+
+  const handleDelete = () => {
+    removeSubject(subject)
+      .then((response) => console.log(response.message))
+      .then(updateList)
+      .catch((error) => console.error(error.message));
+  };
 
   return (
     <motion.div
@@ -59,6 +74,7 @@ function Subject({ subject, index }: { subject: string; index: number }) {
           whileTap={{ scale: 0.9 }}
           aria-label={`Delete ${subject}`}
           role="button"
+          onClick={handleDelete}
         >
           delete
         </motion.span>
@@ -76,6 +92,12 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
       .then(setSubjects)
       .catch((err) => console.log(err.message));
   }, []);
+
+  function updateSubjects() {
+    fetchSubjects()
+      .then(setSubjects)
+      .catch((err) => console.log(err.message));
+  }
 
   return (
     <motion.div
@@ -115,11 +137,7 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
               transition: { type: "spring", stiffness: 300, damping: 20 },
             }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => {
-              fetchSubjects()
-                .then(setSubjects)
-                .catch((err) => console.log(err.message));
-            }}
+            onClick={() => updateSubjects()}
           >
             refresh
           </motion.span>
@@ -128,7 +146,12 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
 
       <div className="flex flex-col gap-4">
         {subjects.map((subject, index) => (
-          <Subject key={index} subject={subject} index={index} />
+          <Subject
+            key={index}
+            subject={subject}
+            index={index}
+            updateList={updateSubjects}
+          />
         ))}
       </div>
     </motion.div>

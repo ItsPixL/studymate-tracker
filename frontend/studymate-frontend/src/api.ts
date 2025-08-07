@@ -43,3 +43,21 @@ export async function addSubject(subjectName: string): Promise<{ message: string
 
     return await res.json();
 }
+
+// Remove Subject
+export async function removeSubject(subjectName: string): Promise<{ message: string }> {
+    const res = await fetch("http://localhost:5000/api/removeSubject", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({subject: subjectName})
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to add subject: ${errorText}`)
+    }
+
+    return await res.json()
+}
