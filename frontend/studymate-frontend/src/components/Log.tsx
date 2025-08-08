@@ -79,19 +79,21 @@ function Dropdown({ label, options, onSelect }: DropdownProps) {
 }
 
 // Subject selector
-function SubjectSelection() {
-  const [subject, setSubject] = useState("Math");
-
+function SubjectSelection({
+  setChosenSubject,
+  subjects,
+}: {
+  setChosenSubject: (data: string) => void;
+  subjects: string[];
+}) {
   const handleChange = (option: Option) => {
-    setSubject(option.value); // or option.label check later code
-    console.log(subject);
+    setChosenSubject(String(option));
   };
 
-  const options = [
-    { label: "Math", value: "math" },
-    { label: "Physics", value: "physics" },
-    { label: "English", value: "english" },
-  ];
+  const options = subjects.map((subject) => ({
+    label: subject,
+    value: subject,
+  }));
 
   return (
     <motion.div
@@ -108,13 +110,16 @@ function SubjectSelection() {
   );
 }
 
-function DurationInput() {
-  const [duration, setDuration] = useState("");
-  // LATER: IF duration = "", use 30
-
+function DurationInput({
+  duration,
+  setDuration,
+}: {
+  duration: number;
+  setDuration: (data: number) => void;
+}) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
-    setDuration(value);
+    setDuration(parseInt(value) ? parseInt(value) : 0);
   };
 
   return (
@@ -140,7 +145,15 @@ function DurationInput() {
 }
 
 // Log
-export default function Log() {
+export default function Log({ subjects }: { subjects: string[] }) {
+  const [chosenSubject, setChosenSubject] = useState("");
+  const [duration, setDuration] = useState(0);
+
+  function ehh() {
+    console.log(chosenSubject);
+  }
+  ehh();
+
   return (
     <motion.div
       className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-5"
@@ -155,8 +168,11 @@ export default function Log() {
 
       <div>
         <div className="grid grid-cols-2 my-2 gap-2">
-          <SubjectSelection />
-          <DurationInput />
+          <SubjectSelection
+            subjects={subjects}
+            setChosenSubject={setChosenSubject}
+          />
+          <DurationInput duration={duration} setDuration={setDuration} />
         </div>
 
         <motion.div

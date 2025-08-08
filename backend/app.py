@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from base import list_subjects, calculate_streaks, get_weekly_stats, get_monthly_stats, add_subject, remove_subject
+from base import list_subjects, calculate_streaks, get_weekly_stats, get_monthly_stats, add_subject, remove_subject, log_session
 
 app = Flask(__name__, static_folder="../frontend/build")
 CORS(app)

@@ -47,7 +47,7 @@ export default function Dashboard() {
             />
           </div>
           <div>
-            <Log />
+            <Log subjects={subjects} />
             <StatsBtns controller={setPopups} />
           </div>
         </div>
