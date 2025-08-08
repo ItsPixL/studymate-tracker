@@ -61,3 +61,5 @@ export async function removeSubject(subjectName: string): Promise<{ message: str
 
     return await res.json()
 }
+
+// IMPORTANT MAKE SUBJECT AUTO REFRESH
