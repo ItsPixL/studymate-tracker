@@ -16,7 +16,13 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function AddSubject({ controller }: { controller: () => void }) {
+export default function AddSubject({
+  controller,
+  refreshSubjects,
+}: {
+  controller: (data: string) => void;
+  refreshSubjects: () => void;
+}) {
   const [subjectName, setSubjectName] = useState("");
 
   const handleSubmit = () => {
@@ -25,7 +31,11 @@ export default function AddSubject({ controller }: { controller: () => void }) {
       return;
     }
     addSubject(subjectName)
-      .then((response) => console.log(response.message))
+      .then((response) => {
+        console.log(response.message);
+        refreshSubjects();
+        controller("none");
+      })
       .catch((error) => console.error(error.message));
     setSubjectName("");
   };
@@ -68,7 +78,7 @@ export default function AddSubject({ controller }: { controller: () => void }) {
           whileTap={{ scale: 0.95 }}
           className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-2 py-1 mt-3 rounded-md text-white text-center"
           variants={itemVariants}
-          onClick={controller}
+          onClick={() => controller("none")}
         >
           Close
         </motion.button>

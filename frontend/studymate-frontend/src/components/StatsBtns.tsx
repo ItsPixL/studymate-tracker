@@ -17,13 +17,13 @@ const itemVariants = {
 export default function StatsBtns({
   controller,
 }: {
-  controller: React.Dispatch<React.SetStateAction<number>>;
+  controller: (data: string) => void;
 }) {
   function onBtnPress({ type }: { type: string }) {
     if (type == "Weekly") {
-      controller(1);
+      controller("stats1");
     } else {
-      controller(2);
+      controller("stats2");
     }
   }
 

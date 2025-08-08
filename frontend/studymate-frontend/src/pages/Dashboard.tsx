@@ -6,35 +6,49 @@ import Log from "../components/Log";
 import AddSubject from "../components/AddSubject";
 import StatsBtns from "../components/StatsBtns";
 import StatsPopup from "../components/StatsPopup";
-
-import { useState } from "react";
+import { fetchSubjects } from "../api";
+import { useState, useEffect } from "react";
 
 export default function Dashboard() {
-  const [addSubjectScreen, setAddSubjectScreen] = useState(false);
-  const [statsPopup, setStatsPopup] = useState(0);
+  const [popups, setPopups] = useState("none");
+  const [subjects, setSubjects] = useState<string[]>([]);
+
+  const updateSubjects = () => {
+    fetchSubjects()
+      .then(setSubjects)
+      .catch((err) => console.log(err.message));
+  };
+
+  useEffect(() => {
+    updateSubjects();
+  }, []);
 
   return (
     <Layout>
-      {addSubjectScreen ? (
-        <AddSubject controller={() => setAddSubjectScreen((prev) => !prev)} />
-      ) : (
+      {popups == "none" ? (
         ""
-      )}
-      {statsPopup == 0 ? (
-        ""
+      ) : popups == "addSubject" ? (
+        <AddSubject controller={setPopups} refreshSubjects={updateSubjects} />
       ) : (
-        <StatsPopup type={statsPopup} controller={setStatsPopup} />
+        <StatsPopup popupType={popups} controller={setPopups} />
       )}
+
       <div className="">
         <Greeting />
         <div className="lg:max-w-screen-2xl mx-auto grid grid-cols-2 gap-7">
           <div>
             <Streaks />
-            <Subjects addSubBtn={() => setAddSubjectScreen((prev) => !prev)} />
+            <Subjects
+              addSubBtn={() =>
+                setPopups((prev) => (prev == "none" ? "addSubject" : "none"))
+              }
+              subjects={subjects}
+              updateSubjects={updateSubjects}
+            />
           </div>
           <div>
             <Log />
-            <StatsBtns controller={setStatsPopup} />
+            <StatsBtns controller={setPopups} />
           </div>
         </div>
       </div>

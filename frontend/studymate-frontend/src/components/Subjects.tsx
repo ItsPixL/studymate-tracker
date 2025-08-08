@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
-import { fetchSubjects, removeSubject } from "../api";
+import { removeSubject } from "../api";
 
 // Motion Varients
 const containerVariants = {
@@ -84,21 +83,15 @@ function Subject({
 }
 
 // Subjects component
-export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
-  const [subjects, setSubjects] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetchSubjects()
-      .then(setSubjects)
-      .catch((err) => console.log(err.message));
-  }, []);
-
-  function updateSubjects() {
-    fetchSubjects()
-      .then(setSubjects)
-      .catch((err) => console.log(err.message));
-  }
-
+export default function Subjects({
+  addSubBtn,
+  subjects,
+  updateSubjects,
+}: {
+  addSubBtn: () => void;
+  subjects: string[];
+  updateSubjects: () => void;
+}) {
   return (
     <motion.div
       className="bg-slate-900/60 backdrop-blur-lg rounded-3xl border-white border-2 my-6 p-6"
@@ -137,7 +130,7 @@ export default function Subjects({ addSubBtn }: { addSubBtn: () => void }) {
               transition: { type: "spring", stiffness: 300, damping: 20 },
             }}
             whileTap={{ scale: 0.9 }}
-            onClick={() => updateSubjects()}
+            onClick={updateSubjects}
           >
             refresh
           </motion.span>

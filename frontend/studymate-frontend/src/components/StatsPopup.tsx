@@ -17,21 +17,21 @@ const itemVariants = {
 };
 
 export default function StatsPopup({
-  type,
+  popupType,
   controller,
 }: {
-  type: number;
-  controller: React.Dispatch<React.SetStateAction<number>>;
+  popupType: string;
+  controller: (data: string) => void;
 }) {
   const [stats, setStats] = useState<string[]>([]);
 
   useEffect(() => {
-    if (type === 1) {
+    if (popupType === "stats1") {
       fetchWeekly().then(setStats);
-    } else if (type === 2) {
+    } else if (popupType === "stats2") {
       fetchMonthly().then(setStats);
     }
-  }, [type]);
+  }, [popupType]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
@@ -45,7 +45,7 @@ export default function StatsPopup({
           className="text-2xl font-bold mb-4 text-center"
           variants={itemVariants}
         >
-          {type === 1 ? "Weekly" : "Monthly"} Stats
+          {popupType === "stats1" ? "Weekly" : "Monthly"} Stats
         </motion.div>
 
         <motion.p
@@ -82,12 +82,12 @@ export default function StatsPopup({
           </div>
         </motion.p>
         <motion.button
-          key={type}
+          key={popupType}
           whileHover={{ scale: 1.05, filter: "brightness(2)" }}
           whileTap={{ scale: 0.95 }}
           className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-2 py-1 mt-3 rounded-md text-white text-center"
           variants={itemVariants}
-          onClick={() => controller(0)}
+          onClick={() => controller("none")}
         >
           Close
         </motion.button>
