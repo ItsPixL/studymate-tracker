@@ -62,4 +62,20 @@ export async function removeSubject(subjectName: string): Promise<{ message: str
     return await res.json()
 }
 
-// IMPORTANT MAKE SUBJECT AUTO REFRESH
+// Log Session
+export async function logSession(subjectName: string, duration: number): Promise<{ message: string }> {
+    const res = await fetch("http://localhost:5000/api/logSession", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({subject: subjectName, duration: duration})
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to log session: ${errorText}`)
+    }
+
+    return await res.json()
+}

@@ -47,7 +47,15 @@ def api_add_subject():
 def api_remove_subject():
     subject = request.get_json().get("subject")
     remove_subject(subject)
-    return jsonify({"message": "Recieved"})
+    return jsonify({"message": "Received"})
+
+# Log session
+@app.route("/api/logSession", methods=["POST"])
+def api_log_session():
+    subject = request.get_json().get("subject")
+    duration = request.get_json().get("duration")
+    log_session(subject, duration)
+    return jsonify({"message": "Received"})
 
 if __name__ == "__main__":
     app.run()

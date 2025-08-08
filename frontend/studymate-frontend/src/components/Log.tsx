@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { useState, useRef, useEffect } from "react";
+import { logSession } from "../api";
 
-// Motion Varients
+// Animation variants
 const containerVariants = {
   hidden: { opacity: 0, y: -20 },
   show: {
@@ -15,6 +16,7 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
+// Types
 type Option = {
   label: string;
   value: string;
@@ -23,17 +25,18 @@ type Option = {
 type DropdownProps = {
   label: string;
   options: Option[];
+  selected: Option | null;
   onSelect: (option: Option) => void;
 };
 
-function Dropdown({ label, options, onSelect }: DropdownProps) {
+// Dropdown Component
+function Dropdown({ label, options, selected, onSelect }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<Option | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleSelect = (option: Option) => {
-    setSelected(option);
     onSelect(option);
     setIsOpen(false);
   };
@@ -78,7 +81,7 @@ function Dropdown({ label, options, onSelect }: DropdownProps) {
   );
 }
 
-// Subject selector
+// Subject Selection
 function SubjectSelection({
   setChosenSubject,
   subjects,
@@ -86,14 +89,17 @@ function SubjectSelection({
   setChosenSubject: (data: string) => void;
   subjects: string[];
 }) {
-  const handleChange = (option: Option) => {
-    setChosenSubject(String(option));
-  };
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
   const options = subjects.map((subject) => ({
     label: subject,
     value: subject,
   }));
+
+  const handleChange = (option: Option) => {
+    setSelectedOption(option);
+    setChosenSubject(option.value);
+  };
 
   return (
     <motion.div
@@ -104,12 +110,14 @@ function SubjectSelection({
       <Dropdown
         label="Select a subject"
         options={options}
+        selected={selectedOption}
         onSelect={handleChange}
-      ></Dropdown>
+      />
     </motion.div>
   );
 }
 
+// Duration Input
 function DurationInput({
   duration,
   setDuration,
@@ -119,7 +127,7 @@ function DurationInput({
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
-    setDuration(parseInt(value) ? parseInt(value) : 0);
+    setDuration(parseInt(value) || 0);
   };
 
   return (
@@ -144,15 +152,20 @@ function DurationInput({
   );
 }
 
-// Log
+// Main Log Component
 export default function Log({ subjects }: { subjects: string[] }) {
-  const [chosenSubject, setChosenSubject] = useState("");
-  const [duration, setDuration] = useState(0);
+  const [chosenSubject, setChosenSubject] = useState<string>("");
+  const [duration, setDuration] = useState<number>(0);
 
-  function ehh() {
-    console.log(chosenSubject);
-  }
-  ehh();
+  const handleLog = () => {
+    console.log("Logging session:", { chosenSubject, duration });
+    logSession(chosenSubject, duration);
+  };
+
+  const handleDeleteSelection = () => {
+    setChosenSubject("");
+    setDuration(0);
+  };
 
   return (
     <motion.div
@@ -184,13 +197,19 @@ export default function Log({ subjects }: { subjects: string[] }) {
             whileTap={{ scale: 0.95 }}
             className="bg-slate-800 w-max px-2 py-3 rounded-md flex items-center justify-center"
           >
-            <span className="material-symbols-outlined">delete</span>
+            <span
+              className="material-symbols-outlined"
+              onClick={handleDeleteSelection}
+            >
+              delete
+            </span>
           </motion.button>
 
           <motion.button
             whileHover={{ scale: 1.05, filter: "brightness(2)" }}
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-blue-900 to-purple-900 w-full rounded-md"
+            onClick={handleLog}
           >
             Log Session
           </motion.button>
