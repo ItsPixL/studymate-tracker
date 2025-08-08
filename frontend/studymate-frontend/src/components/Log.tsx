@@ -31,7 +31,7 @@ type DropdownProps = {
 
 // Dropdown Component
 function Dropdown({ label, options, selected, onSelect }: DropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);

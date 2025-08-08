@@ -10,7 +10,7 @@ import { fetchSubjects } from "../api";
 import { useState, useEffect } from "react";
 
 export default function Dashboard() {
-  const [popups, setPopups] = useState("none");
+  const [popups, setPopups] = useState<string>("none");
   const [subjects, setSubjects] = useState<string[]>([]);
 
   const updateSubjects = () => {

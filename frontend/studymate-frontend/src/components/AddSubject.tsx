@@ -23,7 +23,7 @@ export default function AddSubject({
   controller: (data: string) => void;
   refreshSubjects: () => void;
 }) {
-  const [subjectName, setSubjectName] = useState("");
+  const [subjectName, setSubjectName] = useState<string>("");
 
   const handleSubmit = () => {
     if (subjectName.trim() === "") {
