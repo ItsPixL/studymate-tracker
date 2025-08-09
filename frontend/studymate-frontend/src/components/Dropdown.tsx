@@ -47,7 +47,7 @@ export default function Dropdown({
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
-        className="bg-slate-800 border border-gray-300 px-4 py-2 rounded-md shadow-sm hover:bg-slate-900 w-48 text-left"
+        className="bg-transparent border border-gray-300 px-4 py-2 rounded-md shadow-sm hover:bg-slate-900 w-64 text-left"
       >
         {selected ? selected.label : label}
         <span className="float-right">▾</span>

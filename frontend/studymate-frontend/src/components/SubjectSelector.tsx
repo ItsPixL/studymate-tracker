@@ -16,9 +16,11 @@ const itemVariants = {
 export default function SubjectSelector({
   setChosenSubject,
   subjects,
+  color = "bg-gray-800",
 }: {
   setChosenSubject: (data: string) => void;
   subjects: string[];
+  color?: string;
 }) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
@@ -34,7 +36,7 @@ export default function SubjectSelector({
 
   return (
     <motion.div
-      className="bg-gray-800 px-5 py-4 rounded-2xl"
+      className={`${color} px-5 py-4 rounded-2xl`}
       variants={itemVariants}
     >
       <div className="text-xl font-bold mb-2">Subject</div>

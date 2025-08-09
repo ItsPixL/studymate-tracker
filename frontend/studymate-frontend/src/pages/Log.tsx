@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
-import SubjectSelector from "./SubjectSelector";
+import SubjectSelector from "../components/SubjectSelector";
+import DurationInput from "../components/DurationInput";
 
 // Animation variants
 const containerVariants = {
@@ -15,41 +16,6 @@ const itemVariants = {
   show: { opacity: 1, y: 0 },
 };
 
-// Duration Input
-function DurationInput({
-  duration,
-  setDuration,
-}: {
-  duration: number;
-  setDuration: (data: number) => void;
-}) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, "");
-    setDuration(parseInt(value) || 0);
-  };
-
-  return (
-    <motion.div
-      className="bg-gray-800 px-5 py-4 rounded-2xl"
-      variants={itemVariants}
-    >
-      <div className="text-xl font-bold mb-2">Duration</div>
-      <div className="relative">
-        <input
-          type="text"
-          value={duration}
-          onChange={handleChange}
-          placeholder="30"
-          className="w-full py-2 px-4 pr-20 bg-slate-800 border border-white rounded-md text-white"
-        />
-        <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white pointer-events-none">
-          minutes
-        </span>
-      </div>
-    </motion.div>
-  );
-}
-
 // Types for log component
 type LogProps = {
   subjects: string[];
@@ -57,6 +23,7 @@ type LogProps = {
   duration: number;
   setDuration: (data: number) => void;
   handleLog: () => void;
+  controller: (data: string) => void;
 };
 
 // Main Log Component
@@ -66,6 +33,7 @@ export default function Log({
   duration,
   setDuration,
   handleLog,
+  controller,
 }: LogProps) {
   const handleDeleteSelection = () => {
     setChosenSubject("");
@@ -135,6 +103,7 @@ export default function Log({
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-4 py-3 rounded-md text-white text-center"
               variants={itemVariants}
+              onClick={() => controller(type)}
             >
               Start a <strong>{type}</strong>
             </motion.button>

@@ -62,7 +62,7 @@ def api_log_session():
     subject = request.get_json().get("subject")
     duration = request.get_json().get("duration")
     log_session(subject, duration)
-    return jsonify({"message": f"Logged {subject} for {duration} minutes!"})
+    return jsonify({"message": f"Logged {subject} for {duration / 60} minutes!"})
 
 if __name__ == "__main__":
     app.run()

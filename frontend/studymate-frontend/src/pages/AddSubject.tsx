@@ -1,4 +1,4 @@
-import BasePopup from "./BasePopup";
+import BasePopup from "../components/BasePopup";
 import { useState } from "react";
 import { addSubject } from "../api";
 import { motion } from "motion/react";

@@ -1,12 +1,13 @@
-import Layout from "../components/Layout";
-import Subjects from "../components/Subjects";
-import Greeting from "../components/Greeting";
-import Streaks from "../components/Streaks";
-import Log from "../components/Log";
-import AddSubject from "../components/AddSubject";
-import StatsBtns from "../components/StatsBtns";
-import StatsPopup from "../components/StatsPopup";
-import { fetchSubjects, logSession, checkSubject } from "../api";
+import Layout from "./components/Layout";
+import Subjects from "./pages/Subjects";
+import Greeting from "./pages/Greeting";
+import Streaks from "./pages/Streaks";
+import Log from "./pages/Log";
+import AddSubject from "./pages/AddSubject";
+import StatsBtns from "./components/StatsBtns";
+import StatsPopup from "./components/StatsPopup";
+import TimerPopup from "./pages/TimerPopup";
+import { fetchSubjects, logSession, checkSubject } from "./api";
 import { useState, useEffect } from "react";
 
 export default function Dashboard() {
@@ -30,7 +31,7 @@ export default function Dashboard() {
       alert("Subject not in your list. Please add it to your list first.");
       return;
     } else {
-      const res = await logSession(chosenSubject, duration);
+      const res = await logSession(chosenSubject, duration * 60);
       alert(res.message);
     }
   };
@@ -51,8 +52,20 @@ export default function Dashboard() {
         ""
       ) : popups == "addSubject" ? (
         <AddSubject controller={setPopups} refreshSubjects={updateSubjects} />
-      ) : (
+      ) : popups == "stats1" || popups == "stats2" ? (
         <StatsPopup popupType={popups} controller={setPopups} />
+      ) : popups == "Timer" ? (
+        <TimerPopup
+          popupType={popups}
+          controller={setPopups}
+          subjects={subjects}
+          chosenSubject={chosenSubject}
+          setChosenSubject={setChosenSubject}
+          setDuration={setDuration}
+          handleLog={handleLog}
+        />
+      ) : (
+        ""
       )}
 
       <div className="">
@@ -75,6 +88,7 @@ export default function Dashboard() {
               duration={duration}
               setDuration={setDuration}
               handleLog={handleLog}
+              controller={setPopups}
             />
             <StatsBtns controller={setPopups} />
           </div>

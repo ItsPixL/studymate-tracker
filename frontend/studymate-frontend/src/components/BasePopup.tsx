@@ -21,12 +21,14 @@ export default function BasePopup({
   children,
   popupKey,
   className = "",
+  enabled = true,
 }: {
   title?: string;
   onClose: () => void;
   children: ReactNode;
   popupKey?: string | number;
   className?: string;
+  enabled?: boolean;
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
@@ -49,11 +51,18 @@ export default function BasePopup({
         <motion.div variants={itemVariants}>{children}</motion.div>
 
         <motion.button
-          whileHover={{ scale: 1.05, filter: "brightness(2)" }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-gradient-to-r from-blue-900 to-purple-900 w-full px-2 py-1 mt-3 rounded-md text-white text-center"
-          variants={itemVariants}
+          {...(enabled && {
+            whileHover: { scale: 1.05, filter: "brightness(2)" },
+            whileTap: { scale: 0.95 },
+            variants: itemVariants,
+          })}
+          className={`w-full px-2 py-1 mt-3 rounded-md text-white text-center transition-colors duration-300 ${
+            enabled
+              ? "bg-gradient-to-r from-blue-900 to-purple-900"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
           onClick={onClose}
+          disabled={!enabled}
         >
           Close
         </motion.button>
