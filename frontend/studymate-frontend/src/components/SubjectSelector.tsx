@@ -1,27 +1,33 @@
+// ./components/SubjectSelector.tsx
+
+// Import Modules
 import { motion } from "motion/react";
 import { useState } from "react";
+
+// Import Components
 import Dropdown from "./Dropdown";
 
-// Types
+// Import Variables
+import { itemVariants } from "../animation/varients";
+
+// Define Types
 type Option = {
   label: string;
   value: string;
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
+type types = {
+  setChosenSubject: (data: string) => void;
+  subjects: string[];
+  color?: string;
 };
 
+// Export SubjectSelector
 export default function SubjectSelector({
   setChosenSubject,
   subjects,
   color = "bg-gray-800",
-}: {
-  setChosenSubject: (data: string) => void;
-  subjects: string[];
-  color?: string;
-}) {
+}: types) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
   const options = subjects.map((subject) => ({

@@ -1,21 +1,24 @@
+// ./components/DurationInput.tsx
+
+// Import Modules
 import { motion } from "motion/react";
 
-// Animation variants
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
+// Import Variables
+import { itemVariants } from "../animation/varients";
+
+// Define Types
+type types = {
+  duration: number;
+  setDuration: (data: number) => void;
+  color?: string;
 };
 
-// Duration Input
+// Export DurationInput
 export default function DurationInput({
   duration,
   setDuration,
   color = "bg-gray-800",
-}: {
-  duration: number;
-  setDuration: (data: number) => void;
-  color?: string;
-}) {
+}: types) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
     setDuration(parseInt(value) || 0);

@@ -1,25 +1,28 @@
+// ./components/Dropdown.tsx
+
+// Import Modules
 import { useState, useRef, useEffect } from "react";
 
-// Types
+// Define Types
 type Option = {
   label: string;
   value: string;
 };
 
-type DropdownProps = {
+type types = {
   label: string;
   options: Option[];
   selected: Option | null;
   onSelect: (option: Option) => void;
 };
 
-// Dropdown Component
+// Export Dropdown
 export default function Dropdown({
   label,
   options,
   selected,
   onSelect,
-}: DropdownProps) {
+}: types) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 

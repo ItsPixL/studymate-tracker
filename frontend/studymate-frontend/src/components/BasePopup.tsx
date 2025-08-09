@@ -1,20 +1,25 @@
+// ./components/BasePopup.tsx
+
+// Import Modules
 import { motion } from "motion/react";
+
+// Import Types
 import type { ReactNode } from "react";
 
-const containerVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { when: "beforeChildren", staggerChildren: 0.1 },
-  },
+// Import Variables
+import { containerVariants, itemVariants } from "../animation/varients";
+
+// Define Types
+type types = {
+  title?: string;
+  onClose: () => void;
+  children: ReactNode;
+  popupKey?: string | number;
+  className?: string;
+  enabled?: boolean;
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: -10 },
-  show: { opacity: 1, y: 0 },
-};
-
+// Export Base Popup
 export default function BasePopup({
   title,
   onClose,
@@ -22,14 +27,7 @@ export default function BasePopup({
   popupKey,
   className = "",
   enabled = true,
-}: {
-  title?: string;
-  onClose: () => void;
-  children: ReactNode;
-  popupKey?: string | number;
-  className?: string;
-  enabled?: boolean;
-}) {
+}: types) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
       <motion.div

@@ -1,48 +1,16 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+// ./components/Layout.tsx
 
-function AnimatedDigit({ digit }: { digit: string }) {
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={digit}
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -20, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="inline-block font-sans"
-      >
-        {digit}
-      </motion.div>
-    </AnimatePresence>
-  );
-}
+// Import Modules
+import { motion } from "motion/react";
 
-function Clock() {
-  const [time, setTime] = useState<Date>(new Date());
+// Import Components
+import { Clock } from "./Clock";
 
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+// Define Types
+type types = { children: React.ReactNode };
 
-  const timeString = time.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-
-  return (
-    <div className="text-white text-2xl font-mono flex space-x-1">
-      {timeString.split("").map((char, index) => (
-        <AnimatedDigit key={index + char} digit={char} />
-      ))}
-    </div>
-  );
-}
-
-export default function Layout({ children }: { children: React.ReactNode }) {
+// Export Layout
+export default function Layout({ children }: types) {
   const navContainerVariants = {
     hidden: { opacity: 0, y: -20 },
     show: {

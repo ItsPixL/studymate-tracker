@@ -1,15 +1,21 @@
-import BasePopup from "./BasePopup";
+// ./components/StatsPopup.tsx
+
+// Import Modules
 import { fetchWeekly, fetchMonthly } from "../api";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
-export default function StatsPopup({
-  popupType,
-  controller,
-}: {
+// Import Components
+import BasePopup from "./BasePopup";
+
+// Define Types
+type types = {
   popupType: string;
   controller: (data: string) => void;
-}) {
+};
+
+// Export StatsPopup
+export default function StatsPopup({ popupType, controller }: types) {
   const [stats, setStats] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {

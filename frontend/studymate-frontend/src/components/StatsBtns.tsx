@@ -1,24 +1,18 @@
+// ./components/StatsBtns.tsx
+
+// Import Modules
 import { motion } from "motion/react";
 
-// Motion Varients
-const containerVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-};
+// Import Variables
+import { containerVariants, itemVariants } from "../animation/varients";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
-};
-
-export default function StatsBtns({
-  controller,
-}: {
+// Define Types
+type types = {
   controller: (data: string) => void;
-}) {
+};
+
+// Export StatsBtns
+export default function StatsBtns({ controller }: types) {
   function onBtnPress({ type }: { type: string }) {
     if (type == "Weekly") {
       controller("stats1");
