@@ -1,19 +1,11 @@
+// ./pages/Subjects.tsx
+
+// Import Modules
 import { motion } from "motion/react";
 import { removeSubject } from "../api";
 
-// Motion Varients
-const containerVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
-};
+// Import Variables
+import { containerVariants, itemVariants } from "../animation/varients";
 
 // Subject component
 function Subject({
@@ -82,7 +74,7 @@ function Subject({
   );
 }
 
-// Subjects component
+// Export Subjects
 export default function Subjects({
   addSubBtn,
   subjects,

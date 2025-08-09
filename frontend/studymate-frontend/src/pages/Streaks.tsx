@@ -1,22 +1,14 @@
+// ./pages/Streaks.tsx
+
+// Import Modules
 import { motion } from "motion/react";
 import { fetchStreaks } from "../api";
 import { useState, useEffect } from "react";
 
-// Motion Varients
-const containerVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-};
+// Import Variables
+import { containerVariants, itemVariants } from "../animation/varients";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
-};
-
-// Streaks
+// Export Streaks
 export default function Streaks() {
   const [streaks, setStreaks] = useState<string[]>([]);
 

@@ -1,23 +1,17 @@
+// ./pages/Log.tsx
+
+// Import Modules
 import { motion } from "motion/react";
+
+// Import Components
 import SubjectSelector from "../components/SubjectSelector";
 import DurationInput from "../components/DurationInput";
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-};
+// Import Variables
+import { containerVariants, itemVariants } from "../animation/varients";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0 },
-};
-
-// Types for log component
-type LogProps = {
+// Define Types
+type types = {
   subjects: string[];
   setChosenSubject: (data: string) => void;
   duration: number;
@@ -34,7 +28,7 @@ export default function Log({
   setDuration,
   handleLog,
   controller,
-}: LogProps) {
+}: types) {
   const handleDeleteSelection = () => {
     setChosenSubject("");
     setDuration(0);

@@ -1,15 +1,21 @@
-import BasePopup from "../components/BasePopup";
+// ./pages/AddSubject.tsx
+
+// Import Modules
 import { useState } from "react";
 import { addSubject } from "../api";
 import { motion } from "motion/react";
 
-export default function AddSubject({
-  controller,
-  refreshSubjects,
-}: {
+// Import Components
+import BasePopup from "../components/BasePopup";
+
+// Define Types
+type types = {
   controller: (data: string) => void;
   refreshSubjects: () => void;
-}) {
+};
+
+// Export AddSubject
+export default function AddSubject({ controller, refreshSubjects }: types) {
   const [subjectName, setSubjectName] = useState<string>("");
 
   const handleSubmit = () => {
