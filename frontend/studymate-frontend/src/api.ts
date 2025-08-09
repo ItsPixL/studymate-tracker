@@ -13,15 +13,15 @@ export async function fetchStreaks(): Promise<string[]> {
 }
 
 // Fetch Weekly Stats
-export async function fetchWeekly(): Promise<string[]> {
-    const res = await fetch("http://localhost:5000/api/weekly")
+export async function fetchWeekly(): Promise<{ [key: string]: string }> {
+    const res = await fetch("http://localhost:5000/api/weekly");
     if (!res.ok) throw new Error("Failed to fetch weekly stats");
     return await res.json();
 }
 
 // Fetch Monthly Stats
-export async function fetchMonthly(): Promise<string[]> {
-    const res = await fetch("http://localhost:5000/api/monthly")
+export async function fetchMonthly(): Promise<{ [key: string]: string }> {
+    const res = await fetch("http://localhost:5000/api/monthly");
     if (!res.ok) throw new Error("Failed to fetch monthly stats");
     return await res.json();
 }
