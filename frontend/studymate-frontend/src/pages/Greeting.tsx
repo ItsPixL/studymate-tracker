@@ -72,7 +72,7 @@ export default function Greeting() {
         className="flex justify-end items-center"
         variants={itemVariants}
       >
-        <p className="text-xl max-w-64 text-right">{randomQuote}</p>
+        <p className="text-xl max-w-96 text-right">{randomQuote}</p>
       </motion.div>
     </motion.div>
   );

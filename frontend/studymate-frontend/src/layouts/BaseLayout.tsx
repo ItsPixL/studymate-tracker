@@ -4,7 +4,7 @@
 import { motion } from "motion/react";
 
 // Import Components
-import { Clock } from "./Clock";
+import { Clock } from "../components/Clock";
 
 // Define Types
 type types = { children: React.ReactNode };

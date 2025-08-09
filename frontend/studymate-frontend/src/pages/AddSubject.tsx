@@ -6,7 +6,7 @@ import { addSubject } from "../api";
 import { motion } from "motion/react";
 
 // Import Components
-import BasePopup from "../components/BasePopup";
+import BasePopup from "../layouts/PopupLayout";
 
 // Define Types
 type types = {

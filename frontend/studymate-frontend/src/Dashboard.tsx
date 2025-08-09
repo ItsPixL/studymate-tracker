@@ -5,7 +5,7 @@ import { fetchSubjects, logSession, checkSubject } from "./api";
 import { useState, useEffect } from "react";
 
 // Import Page Elements
-import Layout from "./components/Layout";
+import Layout from "./layouts/BaseLayout";
 import Subjects from "./pages/Subjects";
 import Greeting from "./pages/Greeting";
 import Streaks from "./pages/Streaks";
@@ -14,7 +14,7 @@ import AddSubject from "./pages/AddSubject";
 
 // Import Components
 import StatsBtns from "./components/StatsBtns";
-import StatsPopup from "./components/StatsPopup";
+import StatsPopup from "./popups/StatsPopup";
 
 // Export Dashboard
 export default function Dashboard() {

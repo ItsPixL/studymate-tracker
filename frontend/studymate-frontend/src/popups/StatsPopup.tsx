@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 // Import Components
-import BasePopup from "./BasePopup";
+import BasePopup from "../layouts/PopupLayout";
 
 // Define Types
 type types = {
