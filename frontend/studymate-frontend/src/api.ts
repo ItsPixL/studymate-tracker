@@ -62,6 +62,24 @@ export async function removeSubject(subjectName: string): Promise<{ message: str
     return await res.json()
 }
 
+// Check if subject exists
+export async function checkSubject(subjectName: string ): Promise<{ res: boolean }> {
+    const res = await fetch("http://localhost:5000/api/checkSubject", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({subject: subjectName})
+    });
+
+    if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Failed to check subject: ${errorText}`)
+    }
+
+    return await res.json()
+}
+
 // Log Session
 export async function logSession(subjectName: string, duration: number): Promise<{ message: string }> {
     const res = await fetch("http://localhost:5000/api/logSession", {

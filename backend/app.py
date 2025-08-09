@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from base import list_subjects, calculate_streaks, get_weekly_stats, get_monthly_stats, add_subject, remove_subject, log_session
+from base import list_subjects, calculate_streaks, get_weekly_stats, get_monthly_stats, add_subject, remove_subject, log_session, check_if_subject_exists
 
 app = Flask(__name__, static_folder="../frontend/build")
 CORS(app)
@@ -48,6 +48,13 @@ def api_remove_subject():
     subject = request.get_json().get("subject")
     remove_subject(subject)
     return jsonify({"message": "Received"})
+
+# Check if subject in list
+@app.route("/api/checkSubject", methods=["POST"])
+def api_check_subject():
+    subject = request.get_json().get("subject")
+    res = check_if_subject_exists(subject)
+    return jsonify({"res": res})
 
 # Log session
 @app.route("/api/logSession", methods=["POST"])

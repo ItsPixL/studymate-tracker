@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useState, useRef, useEffect } from "react";
-import { logSession } from "../api";
+import { logSession, checkSubject } from "../api";
 
 // Animation variants
 const containerVariants = {
@@ -157,9 +157,23 @@ export default function Log({ subjects }: { subjects: string[] }) {
   const [chosenSubject, setChosenSubject] = useState<string>("");
   const [duration, setDuration] = useState<number>(0);
 
-  const handleLog = () => {
-    console.log("Logging session:", { chosenSubject, duration });
-    logSession(chosenSubject, duration);
+  const handleLog = async () => {
+    if (!chosenSubject) {
+      alert("No subject chosen");
+      return;
+    }
+    if (duration == 0) {
+      alert("Duration can't be 0");
+      return;
+    }
+
+    const res = await checkSubject(chosenSubject);
+    if (!res) {
+      alert("Subject not in your list. Please add it to your list first.");
+      return;
+    } else {
+      logSession(chosenSubject, duration);
+    }
   };
 
   const handleDeleteSelection = () => {
