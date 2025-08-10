@@ -6,6 +6,7 @@ import { useState } from "react";
 // Import Components
 import BasePopup from "../layouts/PopupLayout";
 import Timer from "../components/Timer";
+import Stopwatch from "../components/Stopwatch";
 
 // Define Types
 type types = {
@@ -40,7 +41,7 @@ export default function TimerPopup({
           handleLog={handleLog}
         />
       ) : popupType == "Stopwatch" ? (
-        "STOPWATCH"
+        <Stopwatch subjects={subjects} handleLog={handleLog} />
       ) : (
         "POMODORO"
       )}
