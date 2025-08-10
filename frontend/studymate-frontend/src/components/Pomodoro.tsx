@@ -15,6 +15,8 @@ import { itemVariants } from "../animation/varients";
 type types = {
   subjects: string[];
   handleLog: (data: { subject: string; duration: number }) => void;
+  timerSet: boolean;
+  setTimerSet: (data: boolean) => void;
 };
 
 type Option = {
@@ -32,7 +34,12 @@ const motionProps = {
 };
 
 // Export Pomodoro
-export default function Pomodoro({ subjects, handleLog }: types) {
+export default function Pomodoro({
+  subjects,
+  handleLog,
+  timerSet,
+  setTimerSet,
+}: types) {
   const [phase, setPhase] = useState<"work" | "break">("work");
   const [cycleCount, setCycleCount] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(25 * 60);
@@ -40,7 +47,6 @@ export default function Pomodoro({ subjects, handleLog }: types) {
   const [elapsedWork, setElapsedWork] = useState<number>(0);
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
-  const [timerSet, setTimerSet] = useState(false);
   const [chosenSubject, setChosenSubject] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
@@ -127,6 +133,18 @@ export default function Pomodoro({ subjects, handleLog }: types) {
     return `${m}:${s}`;
   };
 
+  // Go back to the timer input page
+  const goBack = () => {
+    if (elapsedWork != 0) {
+      const res = confirm(
+        "Are you sure? This will get rid of your progress! Make sure you have logged if you want to keep your progress."
+      );
+      if (!res) return;
+    }
+    setTimeLeft(0);
+    setTimerSet(false);
+  };
+
   // Setup Screen
   const setupScreen = (
     <div>
@@ -164,6 +182,38 @@ export default function Pomodoro({ subjects, handleLog }: types) {
     </div>
   );
 
+  // Define Button Groups
+  const pomodoroBtns1 = [
+    {
+      label: "Start",
+      onClick: () => startTimer(),
+      disabled: isRunning,
+    },
+    {
+      label: "Pause",
+      onClick: () => pauseTimer(),
+      disabled: !isRunning,
+    },
+    {
+      label: "Reset",
+      onClick: () => resetTimer(),
+      disabled: false,
+    },
+  ];
+
+  const pomodoroBtns2 = [
+    {
+      label: "Go back",
+      onClick: () => goBack(),
+      disabled: false,
+    },
+    {
+      label: "Log",
+      onClick: () => logTime(),
+      disabled: elapsedWork === 0 || !chosenSubject,
+    },
+  ];
+
   // Running Screen
   const runningScreen = (
     <div>
@@ -187,34 +237,20 @@ export default function Pomodoro({ subjects, handleLog }: types) {
         </div>
       )}
 
-      <div className="flex gap-2 justify-center mb-4">
-        <motion.button
-          {...motionProps}
-          onClick={startTimer}
-          disabled={isRunning}
-        >
-          Start
-        </motion.button>
-        <motion.button
-          {...motionProps}
-          onClick={pauseTimer}
-          disabled={!isRunning}
-        >
-          Pause
-        </motion.button>
-      </div>
-      <div className="flex gap-2 justify-center">
-        <motion.button {...motionProps} onClick={resetTimer}>
-          Reset
-        </motion.button>
-        <motion.button
-          {...motionProps}
-          onClick={logTime}
-          disabled={elapsedWork === 0 || !chosenSubject}
-        >
-          Log
-        </motion.button>
-      </div>
+      {[pomodoroBtns1, pomodoroBtns2].map((btnsGroup, idx) => (
+        <div key={idx} className="flex gap-2 justify-center mb-4">
+          {btnsGroup.map(({ label, onClick, disabled }) => (
+            <motion.button
+              key={label}
+              onClick={onClick}
+              disabled={disabled}
+              {...motionProps}
+            >
+              {label}
+            </motion.button>
+          ))}
+        </div>
+      ))}
     </div>
   );
 

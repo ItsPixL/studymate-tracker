@@ -42,9 +42,18 @@ export default function TimerPopup({
           handleLog={handleLog}
         />
       ) : popupType == "Stopwatch" ? (
-        <Stopwatch subjects={subjects} handleLog={handleLog} />
+        <Stopwatch
+          subjects={subjects}
+          handleLog={handleLog}
+          setTimerSet={setTimerSet}
+        />
       ) : (
-        <Pomodoro subjects={subjects} handleLog={handleLog} />
+        <Pomodoro
+          subjects={subjects}
+          handleLog={handleLog}
+          timerSet={timerSet}
+          setTimerSet={setTimerSet}
+        />
       )}
     </BasePopup>
   );

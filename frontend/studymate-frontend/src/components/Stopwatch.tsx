@@ -19,6 +19,7 @@ type Option = {
 type Props = {
   subjects: string[];
   handleLog: (data: { subject: string; duration: number }) => void;
+  setTimerSet: (data: boolean) => void;
 };
 
 // Define Button Props
@@ -31,7 +32,7 @@ const motionProps = {
 };
 
 // Export Stopwatch
-export default function Stopwatch({ subjects, handleLog }: Props) {
+export default function Stopwatch({ subjects, handleLog, setTimerSet }: Props) {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [chosenSubject, setChosenSubject] = useState<string>("");
@@ -42,8 +43,8 @@ export default function Stopwatch({ subjects, handleLog }: Props) {
   // Start Stopwatch
   const startTimer = () => {
     if (intervalRef.current !== null) return;
-
     setIsRunning(true);
+    setTimerSet(true);
     intervalRef.current = window.setInterval(() => {
       setElapsedTime((prev) => prev + 1);
     }, 1000);
@@ -56,6 +57,7 @@ export default function Stopwatch({ subjects, handleLog }: Props) {
       intervalRef.current = null;
     }
     setIsRunning(false);
+    setTimerSet(false);
   };
 
   // Reset Stopwatch
