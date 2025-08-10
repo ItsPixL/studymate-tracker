@@ -32,6 +32,11 @@ function Subject({
   ];
 
   const handleDelete = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete "${subject}" and all associated logged sessions? This action cannot be undone!`
+    );
+    if (!confirmDelete) return;
+
     removeSubject(subject)
       .then((response) => console.log(response.message))
       .then(updateList)
