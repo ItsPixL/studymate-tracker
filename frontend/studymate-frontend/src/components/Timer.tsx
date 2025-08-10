@@ -9,10 +9,20 @@ import DurationInput from "./DurationInput";
 
 // Import Variables
 import { itemVariants } from "../animation/varients";
+import SubjectSelector from "./SubjectSelector";
 
 // Define Types
 type TimeUnit = "hours" | "minutes" | "seconds";
-type types = { timerSet: boolean; setTimerSet: (data: boolean) => void };
+type types = {
+  timerSet: boolean;
+  setTimerSet: (data: boolean) => void;
+  subjects: string[];
+  handleLog: (data: { subject: string; duration: number }) => void;
+};
+type Option = {
+  label: string;
+  value: string;
+};
 
 // Define Button Props
 const motionProps = {
@@ -24,15 +34,25 @@ const motionProps = {
 };
 
 // Export Timer
-export default function Timer({ timerSet, setTimerSet }: types) {
+export default function Timer({
+  timerSet,
+  setTimerSet,
+  subjects,
+  handleLog,
+}: types) {
+  // Constants
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [chosenSubject, setChosenSubject] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const time = hours * 3600 + minutes * 60 + seconds;
+  const sessionLength = time - timeLeft;
   const intervalRef = useRef<number | null>(null);
 
+  // Convert user input to timer length
   const setTimer = () => {
     if (!time) {
       alert("Time must be more than 0 seconds");
@@ -42,6 +62,7 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     }
   };
 
+  // Start the timer
   const startTimer = () => {
     if (intervalRef.current !== null) return;
 
@@ -57,6 +78,7 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     }, 1000);
   };
 
+  // Pause the timer
   const pauseTimer = () => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
@@ -65,6 +87,7 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     setIsRunning(false);
   };
 
+  // Reset the timer
   const resetTimer = () => {
     if (timeLeft < time) {
       const res = confirm("Are you sure? This will get rid of your progress!");
@@ -78,15 +101,24 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     return () => pauseTimer();
   }, []);
 
+  // Go back to the timer input page
   const goBack = () => {
     if (timeLeft < time) {
-      const res = confirm("Are you sure? This will get rid of your progress!");
+      const res = confirm(
+        "Are you sure? This will get rid of your progress! Make sure you have logged if you want to keep your progress."
+      );
       if (!res) return;
     }
     setTimeLeft(0);
     setTimerSet(false);
   };
 
+  // Submit session
+  const submitSession = () => {
+    handleLog({ subject: chosenSubject, duration: sessionLength });
+  };
+
+  // Format time from seconds to h:m:s
   const formatTime = (totalSeconds: number) => {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
@@ -101,6 +133,7 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     return parts.join(":");
   };
 
+  // Durations (for array-based repetition)
   const durations: Record<TimeUnit, number> = {
     hours,
     minutes,
@@ -116,6 +149,7 @@ export default function Timer({ timerSet, setTimerSet }: types) {
     seconds: setSeconds,
   };
 
+  // Buttons (for array-based repetition)
   const timerBtns1 = [
     {
       label: "Start",
@@ -141,8 +175,8 @@ export default function Timer({ timerSet, setTimerSet }: types) {
       disabled: false,
     },
     {
-      label: "Submit",
-      onClick: () => goBack(),
+      label: "Log Subject",
+      onClick: () => submitSession(),
       disabled: false,
     },
   ];
@@ -175,6 +209,18 @@ export default function Timer({ timerSet, setTimerSet }: types) {
           <h1 className="text-center text-5xl mb-10 mt-10">
             {formatTime(timeLeft)}
           </h1>
+          {!isRunning && (
+            <div className="flex items-center justify-between">
+              <SubjectSelector
+                setChosenSubject={setChosenSubject}
+                subjects={subjects}
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
+                color={"bg-transparent"}
+              />
+              <div>Session Duration: {formatTime(sessionLength)}</div>
+            </div>
+          )}
           {[timerBtns1, timerBtns2].map((btnsGroup, idx) => (
             <div key={idx} className="flex gap-2">
               {btnsGroup.map(({ label, onClick, disabled }) => (

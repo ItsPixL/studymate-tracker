@@ -74,7 +74,12 @@ export default function Dashboard() {
       ) : popups == "stats1" || popups == "stats2" ? (
         <StatsPopup popupType={popups} controller={setPopups} />
       ) : (
-        <TimerPopup popupType={popups} controller={setPopups} />
+        <TimerPopup
+          popupType={popups}
+          controller={setPopups}
+          subjects={subjects}
+          handleLog={handleLog}
+        />
       )}
 
       <div className="">

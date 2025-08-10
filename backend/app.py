@@ -67,8 +67,8 @@ def api_log_session():
 
     parts = []
     if h: parts.append(f"{h} hour{'s' if h != 1 else ''}")
-    if m: parts.append(f"{m} minutes{'s' if m != 1 else ''}")
-    if s: parts.append(f"{s} second{s if s != 1 else ''}")
+    if m: parts.append(f"{m} minute{'s' if m != 1 else ''}")
+    if s: parts.append(f"{s} second{'s' if s != 1 else ''}")
     formatted_time = ", ".join(parts) if parts else "0 seconds"
 
     return jsonify({"message": f"Logged {subject} for {formatted_time}!"})

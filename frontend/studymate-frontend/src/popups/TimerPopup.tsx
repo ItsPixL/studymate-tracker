@@ -11,10 +11,17 @@ import Timer from "../components/Timer";
 type types = {
   popupType: string;
   controller: (data: string) => void;
+  subjects: string[];
+  handleLog: (data: { subject: string; duration: number }) => void;
 };
 
 // Export TimerPopup
-export default function TimerPopup({ popupType, controller }: types) {
+export default function TimerPopup({
+  popupType,
+  controller,
+  subjects,
+  handleLog,
+}: types) {
   const [timerSet, setTimerSet] = useState<boolean>(false);
 
   return (
@@ -26,7 +33,12 @@ export default function TimerPopup({ popupType, controller }: types) {
       enabled={!timerSet}
     >
       {popupType == "Timer" ? (
-        <Timer timerSet={timerSet} setTimerSet={setTimerSet} />
+        <Timer
+          timerSet={timerSet}
+          setTimerSet={setTimerSet}
+          subjects={subjects}
+          handleLog={handleLog}
+        />
       ) : popupType == "Stopwatch" ? (
         "STOPWATCH"
       ) : (
