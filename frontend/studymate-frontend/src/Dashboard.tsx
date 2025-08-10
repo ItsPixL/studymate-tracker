@@ -10,38 +10,20 @@ import Subjects from "./pages/Subjects";
 import Greeting from "./pages/Greeting";
 import Streaks from "./pages/Streaks";
 import Log from "./pages/Log";
-import AddSubject from "./pages/AddSubject";
+import AddSubjectPopup from "./popups/AddSubjectPopup";
 
 // Import Components
 import StatsBtns from "./components/StatsBtns";
 import StatsPopup from "./popups/StatsPopup";
+import TimerPopup from "./popups/TimerPopup";
 
 // Export Dashboard
 export default function Dashboard() {
+  // Logic for the popup menus
   const [popups, setPopups] = useState<string>("none");
+
+  // Logic for the subjects lists
   const [subjects, setSubjects] = useState<string[]>([]);
-  const [chosenSubject, setChosenSubject] = useState<string>("");
-  const [duration, setDuration] = useState<number>(0);
-
-  const handleLog = async () => {
-    if (!chosenSubject) {
-      alert("No subject chosen");
-      return;
-    }
-    if (duration == 0) {
-      alert("Duration can't be 0");
-      return;
-    }
-
-    const res = await checkSubject(chosenSubject);
-    if (!res) {
-      alert("Subject not in your list. Please add it to your list first.");
-      return;
-    } else {
-      const res = await logSession(chosenSubject, duration * 60);
-      alert(res.message);
-    }
-  };
 
   const updateSubjects = () => {
     fetchSubjects()
@@ -53,18 +35,46 @@ export default function Dashboard() {
     updateSubjects();
   }, []);
 
+  // Logic for logging sessions
+  const handleLog = async ({
+    subject,
+    duration,
+  }: {
+    subject: string;
+    duration: number;
+  }) => {
+    if (!subject) {
+      alert("No subject chosen");
+      return;
+    }
+    if (duration == 0) {
+      alert("Duration can't be 0");
+      return;
+    }
+    const res = await checkSubject(subject);
+    if (!res) {
+      alert("Subject not in your list. Please add it to your list first.");
+      return;
+    } else {
+      const res = await logSession(subject, duration);
+      alert(res.message);
+    }
+  };
+
+  // Dashboard component
   return (
     <Layout>
       {popups == "none" ? (
         ""
       ) : popups == "addSubject" ? (
-        <AddSubject controller={setPopups} refreshSubjects={updateSubjects} />
+        <AddSubjectPopup
+          controller={setPopups}
+          refreshSubjects={updateSubjects}
+        />
       ) : popups == "stats1" || popups == "stats2" ? (
         <StatsPopup popupType={popups} controller={setPopups} />
-      ) : popups == "Timer" ? (
-        ""
       ) : (
-        ""
+        <TimerPopup popupType={popups} controller={setPopups} />
       )}
 
       <div className="">
@@ -83,9 +93,6 @@ export default function Dashboard() {
           <div>
             <Log
               subjects={subjects}
-              setChosenSubject={setChosenSubject}
-              duration={duration}
-              setDuration={setDuration}
               handleLog={handleLog}
               controller={setPopups}
             />

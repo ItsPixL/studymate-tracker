@@ -2,6 +2,7 @@
 
 // Import Modules
 import { motion } from "motion/react";
+import { useState } from "react";
 
 // Import Components
 import SubjectSelector from "../components/SubjectSelector";
@@ -13,25 +14,23 @@ import { containerVariants, itemVariants } from "../animation/varients";
 // Define Types
 type types = {
   subjects: string[];
-  setChosenSubject: (data: string) => void;
-  duration: number;
-  setDuration: (data: number) => void;
-  handleLog: () => void;
+  handleLog: (data: { subject: string; duration: number }) => void;
   controller: (data: string) => void;
 };
 
 // Main Log Component
-export default function Log({
-  subjects,
-  setChosenSubject,
-  duration,
-  setDuration,
-  handleLog,
-  controller,
-}: types) {
+export default function Log({ subjects, handleLog, controller }: types) {
+  const [chosenSubject, setChosenSubject] = useState<string>("");
+  const [durationMin, setDurationMin] = useState<number>(0);
+
   const handleDeleteSelection = () => {
     setChosenSubject("");
-    setDuration(0);
+    setDurationMin(0);
+  };
+
+  const handleLogMin = () => {
+    const seconds = durationMin * 60;
+    handleLog({ subject: chosenSubject, duration: seconds });
   };
 
   return (
@@ -52,7 +51,7 @@ export default function Log({
             subjects={subjects}
             setChosenSubject={setChosenSubject}
           />
-          <DurationInput duration={duration} setDuration={setDuration} />
+          <DurationInput duration={durationMin} setDuration={setDurationMin} />
         </div>
 
         <motion.div
@@ -76,7 +75,7 @@ export default function Log({
             whileHover={{ scale: 1.05, filter: "brightness(2)" }}
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-blue-900 to-purple-900 w-full rounded-md"
-            onClick={handleLog}
+            onClick={handleLogMin}
           >
             Log Session
           </motion.button>

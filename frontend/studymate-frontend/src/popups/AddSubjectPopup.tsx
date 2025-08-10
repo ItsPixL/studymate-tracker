@@ -14,8 +14,11 @@ type types = {
   refreshSubjects: () => void;
 };
 
-// Export AddSubject
-export default function AddSubject({ controller, refreshSubjects }: types) {
+// Export AddSubjectPopup
+export default function AddSubjectPopup({
+  controller,
+  refreshSubjects,
+}: types) {
   const [subjectName, setSubjectName] = useState<string>("");
 
   const handleSubmit = () => {
@@ -38,6 +41,7 @@ export default function AddSubject({ controller, refreshSubjects }: types) {
       title="Add a Subject"
       onClose={() => controller("none")}
       popupKey="add-subject"
+      className="pointer-events-auto cursor-not-allowed"
     >
       <motion.input
         type="text"

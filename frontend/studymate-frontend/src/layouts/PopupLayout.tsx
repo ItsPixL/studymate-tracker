@@ -25,21 +25,26 @@ export default function BasePopup({
   onClose,
   children,
   popupKey,
-  className = "",
+  className = "pointer-events-none",
   enabled = true,
 }: types) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+    <motion.div
+      className={`fixed inset-0 h-screen w-screen z-50 flex items-center justify-center bg-slate-950/60 ${className}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       <motion.div
         key={popupKey}
-        className={`pointer-events-auto bg-slate-900/80 backdrop-blur-lg border border-white p-10 rounded-3xl text-white w-[90%] max-w-md ${className}`}
+        className="pointer-events-auto cursor-auto bg-slate-900/80 backdrop-blur-lg border border-white p-20 rounded-3xl text-white w-[90%] max-w-3xl"
         variants={containerVariants}
         initial="hidden"
         animate="show"
       >
         {title && (
           <motion.div
-            className="text-2xl font-bold mb-4 text-center"
+            className="text-3xl font-bold mb-4 text-center"
             variants={itemVariants}
           >
             {title}
@@ -65,6 +70,6 @@ export default function BasePopup({
           Close
         </motion.button>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

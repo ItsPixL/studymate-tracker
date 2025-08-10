@@ -32,7 +32,7 @@ export default function StatsPopup({ popupType, controller }: types) {
       onClose={() => controller("none")}
       popupKey={popupType}
     >
-      <motion.div className="text-center text-white text-sm">
+      <motion.div className="text-center text-white text-lg">
         {Object.keys(stats).length > 0
           ? Object.entries(stats).map(([key, value], index) => {
               const totalSeconds = parseInt(value, 10);
