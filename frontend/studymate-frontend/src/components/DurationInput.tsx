@@ -8,6 +8,8 @@ import { itemVariants } from "../animation/varients";
 
 // Define Types
 type types = {
+  title?: string;
+  unit?: string;
   duration: number;
   setDuration: (data: number) => void;
   color?: string;
@@ -15,6 +17,8 @@ type types = {
 
 // Export DurationInput
 export default function DurationInput({
+  title = "Duration",
+  unit = "minutes",
   duration,
   setDuration,
   color = "bg-gray-800",
@@ -29,7 +33,7 @@ export default function DurationInput({
       className={`${color} px-5 py-4 rounded-2xl`}
       variants={itemVariants}
     >
-      <div className="text-xl font-bold mb-2">Duration</div>
+      <div className="text-xl font-bold mb-2">{title}</div>
       <div className="relative">
         <input
           type="text"
@@ -39,7 +43,7 @@ export default function DurationInput({
           className="w-full py-2 px-4 pr-20 bg-transparent border border-white rounded-md text-white"
         />
         <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white pointer-events-none">
-          minutes
+          {unit}
         </span>
       </div>
     </motion.div>
