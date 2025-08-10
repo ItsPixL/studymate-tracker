@@ -2,7 +2,6 @@
 
 // Import Modules
 import { motion } from "motion/react";
-import { useState } from "react";
 
 // Import Components
 import Dropdown from "./Dropdown";
@@ -19,6 +18,8 @@ type Option = {
 type types = {
   setChosenSubject: (data: string) => void;
   subjects: string[];
+  selectedOption: Option | null;
+  setSelectedOption: (option: Option | null) => void;
   color?: string;
 };
 
@@ -26,10 +27,10 @@ type types = {
 export default function SubjectSelector({
   setChosenSubject,
   subjects,
+  selectedOption,
+  setSelectedOption,
   color = "bg-gray-800",
 }: types) {
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
-
   const options = subjects.map((subject) => ({
     label: subject,
     value: subject,

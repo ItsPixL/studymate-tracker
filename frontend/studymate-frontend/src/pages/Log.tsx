@@ -18,14 +18,21 @@ type types = {
   controller: (data: string) => void;
 };
 
+type Option = {
+  label: string;
+  value: string;
+};
+
 // Main Log Component
 export default function Log({ subjects, handleLog, controller }: types) {
   const [chosenSubject, setChosenSubject] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [durationMin, setDurationMin] = useState<number>(0);
 
   const handleDeleteSelection = () => {
     setChosenSubject("");
     setDurationMin(0);
+    setSelectedOption(null);
   };
 
   const handleLogMin = () => {
@@ -50,6 +57,8 @@ export default function Log({ subjects, handleLog, controller }: types) {
           <SubjectSelector
             subjects={subjects}
             setChosenSubject={setChosenSubject}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
           />
           <DurationInput duration={durationMin} setDuration={setDurationMin} />
         </div>
