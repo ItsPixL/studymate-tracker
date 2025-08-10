@@ -181,62 +181,64 @@ export default function Timer({
     },
   ];
 
-  return (
+  // Setup Screen
+  const setupScreen = (
     <div>
-      {!timerSet ? (
-        <div>
-          <div className="flex">
-            {["Hours", "Minutes", "Seconds"].map((type) => {
-              const unit = type.toLowerCase();
-              return (
-                <DurationInput
-                  key={unit}
-                  title={""}
-                  unit={unit}
-                  duration={durations[unit as TimeUnit]}
-                  setDuration={setters[unit as TimeUnit]}
-                  color={"bg-transparent"}
-                />
-              );
-            })}
-          </div>
-          <motion.button {...motionProps} onClick={() => setTimer()}>
-            Set Timer
-          </motion.button>
-        </div>
-      ) : (
-        <div>
-          <h1 className="text-center text-5xl mb-10 mt-10">
-            {formatTime(timeLeft)}
-          </h1>
-          {!isRunning && (
-            <div className="flex items-center justify-between">
-              <SubjectSelector
-                setChosenSubject={setChosenSubject}
-                subjects={subjects}
-                selectedOption={selectedOption}
-                setSelectedOption={setSelectedOption}
-                color={"bg-transparent"}
-              />
-              <div>Session Duration: {formatTime(sessionLength)}</div>
-            </div>
-          )}
-          {[timerBtns1, timerBtns2].map((btnsGroup, idx) => (
-            <div key={idx} className="flex gap-2">
-              {btnsGroup.map(({ label, onClick, disabled }) => (
-                <motion.button
-                  key={label}
-                  onClick={onClick}
-                  disabled={disabled}
-                  {...motionProps}
-                >
-                  {label}
-                </motion.button>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="flex">
+        {["Hours", "Minutes", "Seconds"].map((type) => {
+          const unit = type.toLowerCase();
+          return (
+            <DurationInput
+              key={unit}
+              title={""}
+              unit={unit}
+              duration={durations[unit as TimeUnit]}
+              setDuration={setters[unit as TimeUnit]}
+              color={"bg-transparent"}
+            />
+          );
+        })}
+      </div>
+      <motion.button {...motionProps} onClick={() => setTimer()}>
+        Set Timer
+      </motion.button>
     </div>
   );
+
+  // Running Screen
+  const runningScreen = (
+    <div>
+      <h1 className="text-center text-5xl mb-10 mt-10">
+        {formatTime(timeLeft)}
+      </h1>
+      {!isRunning && (
+        <div className="flex items-center justify-between">
+          <SubjectSelector
+            setChosenSubject={setChosenSubject}
+            subjects={subjects}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            color={"bg-transparent"}
+          />
+          <div>Session Duration: {formatTime(sessionLength)}</div>
+        </div>
+      )}
+      {[timerBtns1, timerBtns2].map((btnsGroup, idx) => (
+        <div key={idx} className="flex gap-2">
+          {btnsGroup.map(({ label, onClick, disabled }) => (
+            <motion.button
+              key={label}
+              onClick={onClick}
+              disabled={disabled}
+              {...motionProps}
+            >
+              {label}
+            </motion.button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+
+  return <div>{!timerSet ? setupScreen : runningScreen}</div>;
 }
