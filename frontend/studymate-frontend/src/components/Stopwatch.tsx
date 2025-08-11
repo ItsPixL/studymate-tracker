@@ -1,7 +1,7 @@
 // ./components/Stopwatch.tsx
 
 // Import Modules
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 
 // Import Components
@@ -51,14 +51,14 @@ export default function Stopwatch({ subjects, handleLog, setTimerSet }: Props) {
   };
 
   // Pause Stopwatch
-  const pauseTimer = () => {
+  const pauseTimer = useCallback(() => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
     setIsRunning(false);
     setTimerSet(false);
-  };
+  }, [setIsRunning, setTimerSet]);
 
   // Reset Stopwatch
   const resetTimer = () => {
@@ -94,7 +94,7 @@ export default function Stopwatch({ subjects, handleLog, setTimerSet }: Props) {
 
   useEffect(() => {
     return () => pauseTimer();
-  }, []);
+  }, [pauseTimer]);
 
   // Button Groups
   const timerBtns1 = [

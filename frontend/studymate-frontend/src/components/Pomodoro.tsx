@@ -1,7 +1,7 @@
 // ./components/Pomodoro.tsx
 
 // Import Modules
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 
 // Import Components
@@ -57,6 +57,24 @@ export default function Pomodoro({
   const longBreak = 15 * 60;
   const cyclesBeforeLongBreak = 4;
 
+  // Next Phase
+  const nextPhase = useCallback(() => {
+    if (phase === "work") {
+      const nextCycle = cycleCount + 1;
+      setCycleCount(nextCycle);
+      if (nextCycle % cyclesBeforeLongBreak === 0) {
+        setPhase("break");
+        setTimeLeft(longBreak);
+      } else {
+        setPhase("break");
+        setTimeLeft(shortBreak);
+      }
+    } else {
+      setPhase("work");
+      setTimeLeft(workTime);
+    }
+  }, [phase, cycleCount, longBreak, shortBreak, workTime]);
+
   // Start Timer
   const startTimer = () => {
     if (intervalRef.current !== null) return;
@@ -74,7 +92,7 @@ export default function Pomodoro({
       pauseTimer();
       nextPhase();
     }
-  }, [timeLeft]);
+  }, [timeLeft, isRunning, phase, nextPhase]);
 
   // Pause Timer
   const pauseTimer = () => {
@@ -92,24 +110,6 @@ export default function Pomodoro({
     setCycleCount(0);
     setElapsedWork(0);
     setTimeLeft(workTime);
-  };
-
-  // Next Phase
-  const nextPhase = () => {
-    if (phase === "work") {
-      const nextCycle = cycleCount + 1;
-      setCycleCount(nextCycle);
-      if (nextCycle % cyclesBeforeLongBreak === 0) {
-        setPhase("break");
-        setTimeLeft(longBreak);
-      } else {
-        setPhase("break");
-        setTimeLeft(shortBreak);
-      }
-    } else {
-      setPhase("work");
-      setTimeLeft(workTime);
-    }
   };
 
   // Log Time
