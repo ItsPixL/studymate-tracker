@@ -100,7 +100,7 @@ Both the GUI and CLI work simultaneously, so you can easily switch between them!
 
 Here are common things that might go wrong:
 
-### 1. "Unexpected token '<'" is not valid JSON"
+### 1. "Unexpected token '<' is not valid JSON"
 
 This usually happens if the backend is serving the HTML fallback page instead of JSON.
 
