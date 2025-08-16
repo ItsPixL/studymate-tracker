@@ -34,7 +34,7 @@ StudyMate helps you focus on your learning by tracking study sessions, timing th
 ### 1️⃣ Clone the repo
 
 ```bash
-git clone https://github.com/ItsPixL/studymate-tracker.git
+git clone https://github.com/ItsPixL/studymate-tracker
 cd studymate-tracker
 ```
 
