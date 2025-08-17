@@ -119,7 +119,7 @@ This usually happens if the backend is serving the HTML fallback page instead of
 
 ### 3. Frontend not updating after changes
 
-- Rebuilt the frontend using `npm run build` (inside the frontend/studymate-frontend/ folder)
+- Rebuild the frontend using `npm run build` (inside the frontend/studymate-frontend/ folder)
 
 ---
 
