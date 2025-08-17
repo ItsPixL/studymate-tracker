@@ -30,6 +30,7 @@ StudyMate helps you focus on your learning by tracking study sessions, timing th
 ---
 
 ## 🖥️ Quick Start
+Note that these commands are for Bash (Linux/MacOS) and Windows commands may differ slightly.
 
 ### 1️⃣ Clone the repo
 
@@ -41,6 +42,7 @@ cd studymate-tracker
 ### 2️⃣ Choose your mode (SETUP ONLY)
 
 #### CLI mode (SETUP ONLY)
+NOTE: CLI mode requires Python and Pip.
 
 ```bash
 cd backend
@@ -51,6 +53,7 @@ python main.py
 ```
 
 #### GUI mode (SETUP ONLY)
+NOTE: GUI mode requires Python, Pip, and NodeJS (specifically npm).
 
 ```bash
 # Backend setup
@@ -79,6 +82,7 @@ You're all setup! Now you can:
 - Watch your stats (and grades) grow
 
 #### Start CLI
+Ensure you have completed the CLI setup before running this (you only need to setup once).
 
 ```bash
 cd backend
@@ -86,6 +90,7 @@ python main.py
 ```
 
 #### Start GUI
+Ensure you have completed the GUI setup before running this (you only need to setup once).
 
 ```bash
 cd backend
