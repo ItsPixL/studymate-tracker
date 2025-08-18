@@ -45,10 +45,17 @@ cd studymate-tracker
 NOTE: CLI mode requires Python and Pip.
 
 ```bash
+# Navigate to backend
 cd backend
+
+# Create and activate virtual environment
 python3 -m venv .venv
-source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
+source .venv/bin/activate        # ON WINDOWS: .venv\Scripts\Activate.ps1
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Start CLI app
 python main.py
 ```
 
@@ -56,19 +63,19 @@ python main.py
 NOTE: GUI mode requires Python, Pip, and NodeJS (specifically npm).
 
 ```bash
-# Backend setup
-source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
+# Create and activate virtual environment
 cd backend
 python3 -m venv .venv
+source .venv/bin/activate        # ON WINDOWS: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
-# Frontend setup
+# Set up frontend
 cd ../frontend/studymate-frontend
 npm install
 npm run build
 
 # Run Flask server
-cd ../backend
+cd ../../backend
 python app.py
 ```
 
@@ -85,8 +92,8 @@ You're all setup! Now you can:
 Ensure you have completed the CLI setup before running this (you only need to setup once).
 
 ```bash
-source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 cd backend
+source .venv/bin/activate        # ON WINDOWS: .venv\Scripts\Activate.ps1
 python main.py
 ```
 
@@ -94,8 +101,8 @@ python main.py
 Ensure you have completed the GUI setup before running this (you only need to setup once).
 
 ```bash
-source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 cd backend
+source .venv/bin/activate        # ON WINDOWS: .venv\Scripts\Activate.ps1
 python app.py
 ```
 
