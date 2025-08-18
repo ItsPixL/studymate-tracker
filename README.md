@@ -47,7 +47,7 @@ NOTE: CLI mode requires Python and Pip.
 ```bash
 cd backend
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python main.py
 ```
@@ -57,9 +57,9 @@ NOTE: GUI mode requires Python, Pip, and NodeJS (specifically npm).
 
 ```bash
 # Backend setup
+source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 cd backend
 python3 -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 
 # Frontend setup
@@ -85,6 +85,7 @@ You're all setup! Now you can:
 Ensure you have completed the CLI setup before running this (you only need to setup once).
 
 ```bash
+source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 cd backend
 python main.py
 ```
@@ -93,6 +94,7 @@ python main.py
 Ensure you have completed the GUI setup before running this (you only need to setup once).
 
 ```bash
+source .venv/bin/activate # ON WINDOWS: .venv\Scripts\Activate.ps1
 cd backend
 python app.py
 ```
