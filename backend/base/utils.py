@@ -6,8 +6,11 @@ from pathlib import Path
 # Variables
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-SUBJECTS = PROJECT_ROOT / 'data' / 'subjects.json'
-SESSIONS = PROJECT_ROOT / 'data' / 'sessions.json'
+DATA_DIR = PROJECT_ROOT / 'data'
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+SUBJECTS = DATA_DIR / 'subjects.json'
+SESSIONS = DATA_DIR / 'sessions.json'
 
 
 # --------------------------------------------------------------------
