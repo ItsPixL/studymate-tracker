@@ -18,7 +18,7 @@ static_folder: str = cast(str, frontend_dir)
 
 # Initialize Flask app
 app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:8000"}})
 
 # ---------- API ROUTES ----------
 
