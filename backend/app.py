@@ -93,7 +93,7 @@ def serve_react(path):
 # ---------- START SERVER ----------
 
 if __name__ == "__main__":
-    port = 5000
+    port = 8000
     url = f"http://localhost:{port}"
     print(f"🚀 Serving app at {url}")
     webbrowser.open(url)  # Open in browser automatically
