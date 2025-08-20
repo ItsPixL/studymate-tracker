@@ -93,19 +93,12 @@ def serve_react(path):
 # ---------- START SERVER ----------
 
 if __name__ == "__main__":
-    import os, sys, subprocess
-    host = "127.0.0.1"
-    port = "8000"
+    import logging
 
-    # If Gunicorn is available, run with it
-    try:
-        import gunicorn 
-        subprocess.run([
-            sys.executable, "-m", "gunicorn",
-            f"--bind={host}:{port}" --timeout 120, "app:app"
-        ])
-    except ImportError:
-        # Fall back to Flask’s built-in server
-        print("⚠️ Gunicorn not found, using Flask’s built‑in server")
-        from app import app
-        app.run(host=host, port=int(port))
+    # Shut up Werkzeug’s default logs
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR) 
+
+    print("Running StudyMate on 127.0.0.1:8000")
+    print()
+    app.run(host="127.0.0.1", port=8000, debug=False)
