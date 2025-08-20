@@ -94,11 +94,19 @@ def serve_react(path):
 
 if __name__ == "__main__":
     import logging
+    import webbrowser
 
     # Shut up Werkzeug’s default logs
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR) 
 
-    print("Running StudyMate on 127.0.0.1:8000")
-    print()
+    url = "http://127.0.0.1:8000"
+    print(f"Running StudyMate on {url}\n")
+
+    try:
+        webbrowser.open(url)
+        print("Opening in your default browser...")
+    except Exception:
+        print(f"Couldn't launch browser automatically — open {url} manually.")
+
     app.run(host="127.0.0.1", port=8000, debug=False)
