@@ -18,7 +18,7 @@ static_folder: str = cast(str, frontend_dir)
 
 # Initialize Flask app
 app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:8000"}})
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:8000", "http://127.0.0.1:8000"]}})
 
 # ---------- API ROUTES ----------
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
         import gunicorn 
         subprocess.run([
             sys.executable, "-m", "gunicorn",
-            f"--bind={host}:{port}", "app:app"
+            f"--bind={host}:{port}" --timeout 120, "app:app"
         ])
     except ImportError:
         # Fall back to Flask’s built-in server
