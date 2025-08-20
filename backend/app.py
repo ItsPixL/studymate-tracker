@@ -93,8 +93,19 @@ def serve_react(path):
 # ---------- START SERVER ----------
 
 if __name__ == "__main__":
-    port = 8000
-    url = f"http://localhost:{port}"
-    print(f"🚀 Serving app at {url}")
-    webbrowser.open(url)  # Open in browser automatically
-    app.run(debug=False, port=port)
+    import os, sys, subprocess
+    host = "127.0.0.1"
+    port = "8000"
+
+    # If Gunicorn is available, run with it
+    try:
+        import gunicorn 
+        subprocess.run([
+            sys.executable, "-m", "gunicorn",
+            f"--bind={host}:{port}", "app:app"
+        ])
+    except ImportError:
+        # Fall back to Flask’s built-in server
+        print("⚠️ Gunicorn not found, using Flask’s built‑in server")
+        from app import app
+        app.run(host=host, port=int(port))
