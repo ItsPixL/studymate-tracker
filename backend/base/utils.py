@@ -4,10 +4,10 @@ import sys
 from pathlib import Path
 
 if getattr(sys, 'frozen', False):
-    # If running from a PyInstaller exe
+    # Running as an exe → data/ is next to the exe
     PROJECT_ROOT = Path(sys.executable).resolve().parent
 else:
-    # If running from source
+    # Running via Python → data/ is one level up from backend/
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 DATA_DIR = PROJECT_ROOT / 'data'

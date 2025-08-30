@@ -12,17 +12,17 @@ from base import (
 
 # Path to the React dist directory
 if getattr(sys, 'frozen', False):
+    # exe → frontend/dist inside the same folder as the exe
     PROJECT_ROOT = os.path.dirname(sys.executable)
+    frontend_dir = os.path.join(PROJECT_ROOT, "frontend/dist")
 else:
-    PROJECT_ROOT = os.path.dirname(__file__)
+    # dev → relative to backend folder
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    frontend_dir = os.path.abspath(os.path.join(PROJECT_ROOT, "../frontend/studymate-frontend/dist"))
 
-frontend_dir = os.path.join(PROJECT_ROOT, "../frontend/studymate-frontend/dist")
-
-app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
-
-# Initialize Flask app
 app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
 CORS(app, resources={r"/api/*": {"origins": ["http://localhost:8000", "http://127.0.0.1:8000"]}})
+
 
 # ---------- API ROUTES ----------
 
