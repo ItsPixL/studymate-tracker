@@ -153,7 +153,14 @@ Help and suggestions are welcome! Use issues for anything you want to discuss. O
 
 ## 🤖 A Note on AI Use
 
-AI has been used in this project, but very minimally. ChatGPT was used in creating this README, as well as generating the idea and general development roadmap. However, no AI was used for code or debugging - this was all done manually using documentation and lots of trial and error.
+AI was used in this project, mainly for generating ideas, development roadmap, and instructions on how to make/do something (but not actually making it for me). Very few things were written with AI, such as:
+
+- This README
+- Code for file paths (since they change from executables to python)
+- A few React component parts
+- A little of the Python Flask APIs (since it was my first time using Flask)
+
+However, that is about the extent of AI use in this project. Majority of it was written and debugged manually.
 
 ---
 
