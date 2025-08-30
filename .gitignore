@@ -6,7 +6,6 @@ backend/data/
 
 # --- Node.js frontend ---
 **/node_modules/
-**/dist/
 
 # --- Environment files ---
 .env

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from typing import cast
 import os
+import sys
 import webbrowser
 
 # Import your backend logic
@@ -11,10 +11,14 @@ from base import (
 )
 
 # Path to the React dist directory
-frontend_dir = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../frontend/studymate-frontend/dist")
-)
-static_folder: str = cast(str, frontend_dir)
+if getattr(sys, 'frozen', False):
+    PROJECT_ROOT = os.path.dirname(sys.executable)
+else:
+    PROJECT_ROOT = os.path.dirname(__file__)
+
+frontend_dir = os.path.join(PROJECT_ROOT, "frontend/dist")
+
+app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
 
 # Initialize Flask app
 app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
@@ -82,7 +86,7 @@ def api_log_session():
 @app.route("/<path:path>")
 def serve_react(path):
     static_folder = app.static_folder
-    assert static_folder is not None  # Tell type checker this is safe
+    assert static_folder is not None  
     file_path = os.path.join(static_folder, path)
 
     if path != "" and os.path.exists(file_path):
@@ -106,7 +110,7 @@ if __name__ == "__main__":
     try:
         webbrowser.open(url)
         print("Opening in your default browser...")
-    except Exception:
+    except:
         print(f"Couldn't launch browser automatically — open {url} manually.")
 
     app.run(host="127.0.0.1", port=8000, debug=False)
