@@ -16,7 +16,7 @@ if getattr(sys, 'frozen', False):
 else:
     PROJECT_ROOT = os.path.dirname(__file__)
 
-frontend_dir = os.path.join(PROJECT_ROOT, "frontend/dist")
+frontend_dir = os.path.join(PROJECT_ROOT, "../frontend/studymate-frontend/dist")
 
 app = Flask(__name__, static_folder=frontend_dir, static_url_path="")
 
