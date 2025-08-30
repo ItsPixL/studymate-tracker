@@ -29,8 +29,19 @@ StudyMate helps you focus on your learning by tracking study sessions, timing th
 
 ---
 
-## 🖥️ Quick Start
-Note that these commands are for Bash (Linux/MacOS) and Windows commands may differ slightly.
+## 🖥️ Quick Start
+
+Head to the 'Releases' page (https://github.com/ItsPixL/studymate-tracker/releases/) and download the latest release for your operating system.
+Unzip the folder, start the executable (.exe, .app, or ELF), and you're up and running!
+All your data is stored locally and synced between the CLI and GUI for whatever mood you're in.
+
+---
+
+## 🖥️ Manual App
+
+| Note that these commands are for Bash (Linux/MacOS) and Windows commands may differ slightly.
+
+Want to run the app manually by cloning the repo? This gets you all the source code to play around with if you want to!
 
 ### 1️⃣ Clone the repo
 
@@ -42,6 +53,7 @@ cd studymate-tracker
 ### 2️⃣ Choose your mode (SETUP ONLY)
 
 #### CLI mode (SETUP ONLY)
+
 NOTE: CLI mode requires Python and Pip.
 
 ```bash
@@ -60,6 +72,7 @@ python main.py
 ```
 
 #### GUI mode (SETUP ONLY)
+
 NOTE: GUI mode requires Python, Pip, and NodeJS (specifically npm).
 
 ```bash
@@ -89,6 +102,7 @@ You're all setup! Now you can:
 - Watch your stats (and grades) grow
 
 #### Start CLI
+
 Ensure you have completed the CLI setup before running this (you only need to setup once).
 
 ```bash
@@ -98,6 +112,7 @@ python main.py
 ```
 
 #### Start GUI
+
 Ensure you have completed the GUI setup before running this (you only need to setup once).
 
 ```bash
@@ -108,25 +123,23 @@ python app.py
 
 Both the GUI and CLI work simultaneously, so you can easily switch between them! All your data is stored in `backend/data/sessions.json` and `backend/data/subjects.json` and nothing is sent to any servers or anything external (the app can run fully offline)!
 
----
-
-## 🛠️ Troubleshooting
+### 🛠️ Troubleshooting
 
 Here are common things that might go wrong:
 
-### 1. "Unexpected token '<' is not valid JSON"
+#### 1. "Unexpected token '<' is not valid JSON"
 
 This usually happens if the backend is serving the HTML fallback page instead of JSON.
 
 - Check that the backend is running before making requests.
 - Ensure the API endpoint URL is correct in your frontend config.
 
-### 2. "ModuleNotFoundError"
+#### 2. "ModuleNotFoundError"
 
 - Make sure your virtual environment is activated (source venv/bin/activate or venv\Scripts\activate on Windows).
 - Install requirements again using `pip install -r requirements.txt`.
 
-### 3. Frontend not updating after changes
+#### 3. Frontend not updating after changes
 
 - Rebuild the frontend using `npm run build` (inside the frontend/studymate-frontend/ folder)
 
