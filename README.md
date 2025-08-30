@@ -37,9 +37,9 @@ All your data is stored locally and synced between the CLI and GUI for whatever 
 
 ---
 
-## 🖥️ Manual App
+## 🤓 Manually Run App (not recommended for most people)
 
-| Note that these commands are for Bash (Linux/MacOS) and Windows commands may differ slightly.
+> Note that these commands are for Bash (Linux/MacOS) and Windows commands may differ slightly.
 
 Want to run the app manually by cloning the repo? This gets you all the source code to play around with if you want to!
 
