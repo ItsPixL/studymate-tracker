@@ -32,7 +32,7 @@ StudyMate helps you focus on your learning by tracking study sessions, timing th
 ## 🖥️ Quick Start
 
 Head to the 'Releases' page (https://github.com/ItsPixL/studymate-tracker/releases/) and download the latest release for your operating system.
-Unzip the folder, start the executable (.exe, .app, or ELF), and you're up and running!
+Unzip the folder, start the executable, and you're up and running!
 All your data is stored locally and synced between the CLI and GUI for whatever mood you're in.
 
 ---
